@@ -32,3 +32,104 @@ aws sts get-caller-identity
 - Budgets help monitor unexpected AWS spending.
 
 Started documenting my journey while preparing for the AWS Certified Solutions Architect – Associate (SAA-C03) certification.
+
+## 2026-07-25
+
+### Amazon S3
+
+Completed my introduction to Amazon S3 through both the AWS Management Console and the AWS CLI.
+
+### Topics Covered
+
+* Created and configured an S3 bucket
+* Uploaded objects through the AWS Management Console
+* Learned about bucket versioning, server-side encryption, tags, metadata, and object lock
+* Learned how S3 stores objects using prefixes instead of traditional folders
+* Explored S3 storage classes
+* Used AWS CloudShell to interact with S3
+* Practiced high-level `aws s3` commands
+* Practiced low-level `aws s3api` commands
+* Learned the difference between `aws s3` and `aws s3api`
+
+### Commands Practiced
+
+```bash
+aws s3
+aws s3 ls
+aws s3 cp
+aws s3 mv
+aws s3 rm
+aws s3 sync
+aws s3 mb
+aws s3 rb
+```
+
+```bash
+aws s3api create-bucket
+aws s3api list-buckets
+aws s3api copy-object
+aws s3api get-object
+aws s3api put-object
+```
+
+### What I Learned
+
+* Amazon S3 is an object storage service that stores data as objects inside buckets.
+* Buckets must be empty before they can be deleted.
+* The folders shown in the AWS Console are actually object key prefixes, not real directories.
+* The `aws s3` commands provide high-level file operations, while `aws s3api` provides lower-level access to the S3 API.
+* AWS CloudShell provides a Linux environment with the AWS CLI already installed.
+
+### Repository Updates
+
+* Added the `01-Storage/S3` section to this repository.
+* Documented Amazon S3 concepts in `README.md`.
+* Created a dedicated CLI reference (`cli.md`).
+* Recorded additional concepts and observations in `notes.md`.
+
+## 2026-07-25 (Continued)
+
+### Amazon S3
+
+Continued learning Amazon S3 by exploring more advanced AWS CLI commands and introducing Bash scripting to automate common S3 operations.
+
+### Topics Covered
+
+* Listed objects using `aws s3api`
+* Filtered JSON responses using JMESPath queries
+* Learned how object prefixes represent folders in S3
+* Practiced working with object keys
+* Introduced Bash scripting for AWS automation
+* Created reusable scripts for bucket and object management
+* Learned how to make Bash scripts executable using `chmod`
+* Used shebangs to create portable Bash scripts
+* Learned input validation for Bash scripts
+* Learned how `LocationConstraint` is required when creating buckets outside `us-east-1`
+* Used `jq` to sort and filter JSON output
+* Explored Linux utilities such as `tree`, `dd`, and `set -e`
+
+### Commands Practiced
+
+```bash
+aws s3api list-objects
+aws s3api list-objects-v2
+chmod
+tree
+jq
+```
+
+### What I Learned
+
+* Backslashes (`\`) allow long Bash commands to span multiple lines for better readability.
+* `aws s3api` provides lower-level access to Amazon S3 than the high-level `aws s3` commands.
+* Reusable Bash scripts make AWS operations repeatable and are a step toward Infrastructure as Code (IaC).
+* The recommended portable shebang is `#!/usr/bin/env bash`.
+* Bash scripts should validate user input before executing AWS CLI commands.
+* `jq` is a powerful tool for filtering and formatting JSON returned by the AWS CLI.
+* Buckets created outside `us-east-1` require a `LocationConstraint` when using the low-level S3 API.
+
+### Repository Updates
+
+* Expanded the Amazon S3 documentation.
+* Added advanced AWS CLI examples.
+* Documented Bash scripting concepts and Linux utilities used with AWS CloudShell.

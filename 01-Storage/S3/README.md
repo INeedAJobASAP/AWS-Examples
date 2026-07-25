@@ -37,3 +37,32 @@ Things I learned:
 - Files larger than approximately 160 GB should be uploaded using the AWS CLI or an SDK.
 - Objects are easier to manage through the CLI than through the console.
 - Buckets must be emptied before they can be deleted.
+
+## Listing Objects
+
+Using the AWS CLI, objects inside a bucket can be listed in JSON format or filtered using JMESPath queries.
+
+Examples include:
+
+* Listing every object in a bucket
+* Returning only object keys
+* Filtering specific fields from the response
+
+When objects are uploaded into folders, the returned object keys include their prefixes (for example, `images/photo.jpg`).
+
+## Bash Automation
+
+The instructor introduced Bash scripting to automate common S3 tasks.
+
+Instead of repeatedly typing AWS CLI commands, reusable Bash scripts were created for operations such as:
+
+* Creating buckets
+* Deleting buckets
+* Listing buckets
+* Listing objects
+* Uploading objects
+* Synchronizing directories
+
+Each script accepts command-line arguments, making them reusable for different buckets and environments.
+
+This approach is similar to Infrastructure as Code (IaC), where cloud resources are managed through code rather than manually using the AWS Management Console.

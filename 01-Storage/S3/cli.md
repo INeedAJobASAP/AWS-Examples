@@ -349,3 +349,228 @@ mv hello.txt images/
 ```bash
 ls images/
 ```
+---
+
+# Additional S3 API Commands
+
+## Upload an HTML File
+
+Amazon S3 automatically detected the file's content type during upload.
+
+```bash
+touch index.html
+```
+
+```bash
+nano index.html
+```
+
+```bash
+aws s3api put-object \
+  --bucket bucket-name \
+  --key index.html \
+  --body index.html
+```
+
+---
+
+## List Objects
+
+Returns every object inside a bucket.
+
+```bash
+aws s3api list-objects --bucket bucket-name
+```
+
+---
+
+## Return Object Contents
+
+```bash
+aws s3api list-objects --bucket bucket-name --query Contents
+```
+
+---
+
+## Return Object Keys Only
+
+```bash
+aws s3api list-objects --bucket bucket-name --query "Contents[].Key"
+```
+
+When objects are stored inside folders, the returned keys include the full prefix.
+
+Example:
+
+```text
+images/
+images/photo.jpg
+```
+
+---
+
+# Bash Scripting
+
+## Recommended Shebang
+
+```bash
+#!/usr/bin/env bash
+```
+
+Alternative:
+
+```bash
+#!/bin/bash
+```
+
+---
+
+## Make Scripts Executable
+
+```bash
+chmod u+x s3/bash-scripts/*
+```
+
+Verify permissions:
+
+```bash
+ls -la s3/bash-scripts/
+```
+
+---
+
+## Check Required Input
+
+```bash
+if [ -z "$1" ]; then
+    echo "No bucket name provided."
+    exit 1
+fi
+```
+
+Assign the first argument:
+
+```bash
+BUCKET_NAME=$1
+```
+
+---
+
+## Create Bucket Script
+
+```bash
+aws s3api create-bucket \
+  --bucket $BUCKET_NAME
+```
+
+For regions other than `us-east-1`:
+
+```bash
+aws s3api create-bucket \
+  --bucket $BUCKET_NAME \
+  --create-bucket-configuration LocationConstraint=ca-central-1 \
+  --query Location \
+  --output text
+```
+
+---
+
+## Delete Bucket Script
+
+```bash
+aws s3api delete-bucket \
+  --bucket $BUCKET_NAME \
+  --query Location \
+  --output text
+```
+
+---
+
+## List Objects (v2)
+
+```bash
+aws s3api list-objects-v2 \
+  --bucket $BUCKET_NAME
+```
+
+---
+
+## Exit Immediately on Errors
+
+```bash
+set -e
+```
+
+---
+
+## Synchronize Files
+
+```bash
+aws s3 sync local-directory s3://$BUCKET_NAME/files
+```
+
+---
+
+## List Buckets
+
+```bash
+aws s3 ls
+```
+
+---
+
+## Make a New Script Executable
+
+```bash
+chmod u+x s3/bash-scripts/list-buckets
+```
+
+---
+
+## Display Bucket Names Sorted by Creation Date
+
+```bash
+aws s3api list-buckets | jq -r '.Buckets | sort_by(.CreationDate) | reverse | .[] | .Name'
+```
+
+---
+
+## Display Only the Five Most Recent Buckets
+
+```bash
+aws s3api list-buckets | jq -r '.Buckets | sort_by(.CreationDate) | reverse | .[0:5] | .[] | .Name'
+```
+
+---
+
+# Linux Commands Used
+
+Create an empty file:
+
+```bash
+touch index.html
+```
+
+Edit a file:
+
+```bash
+nano index.html
+```
+
+Display a directory tree:
+
+```bash
+tree directory-name
+```
+
+View the manual for `dd`:
+
+```bash
+man dd
+```
+
+Install a package (Debian/Ubuntu):
+
+```bash
+sudo apt-get install package-name
+```
