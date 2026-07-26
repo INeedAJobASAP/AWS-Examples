@@ -175,3 +175,78 @@ Instead of manually creating resources through the console, infrastructure can b
 The instructor introduced `jq` for filtering and formatting JSON output.
 
 It can be used to sort, filter, and extract data returned by AWS CLI commands.
+
+## Additional AWS CLI Concepts
+
+JMESPath array indexing can return only the most recent bucket.
+
+Example:
+
+* `.[0:5]` returns the five most recent buckets.
+* `.[0]` returns only the newest bucket.
+
+## Bash Automation
+
+Additional reusable scripts were created for:
+
+* Deleting every object inside a bucket
+* Listing buckets
+* Creating buckets
+* Deleting buckets
+* Synchronizing files
+
+Instead of manually deleting resources through the AWS Console, automation allows the same workflow to be repeated consistently.
+
+## PowerShell
+
+PowerShell uses a Verb-Noun naming convention.
+
+Examples include:
+
+* `New-S3Bucket`
+* `Get-S3Bucket`
+* `Write-S3Object`
+* `Set-Content`
+
+PowerShell scripts can prompt the user for input, create resources, and upload files using AWS cmdlets.
+
+## AWS SDK for Ruby
+
+The Ruby SDK requires external gems such as:
+
+* aws-sdk-s3
+* pry
+* nokogiri
+
+The SDK allows applications to interact directly with Amazon S3 without calling the AWS CLI.
+
+The instructor also introduced:
+
+* `SecureRandom` for generating unique file contents.
+* `binding.pry` as a breakpoint for debugging Ruby applications.
+
+## CloudFormation
+
+CloudFormation templates were written in YAML.
+
+The instructor noted:
+
+* JSON was introduced first but is more difficult to read and maintain.
+* YAML is generally preferred because it is easier to write.
+
+CloudFormation deployments are **idempotent**.
+
+Running the same deployment multiple times updates existing infrastructure instead of creating duplicate resources.
+
+## Terraform
+
+Terraform was briefly introduced as a popular third-party Infrastructure as Code tool.
+
+Unlike CloudFormation, Terraform supports multiple cloud providers and is commonly used in multi-cloud environments.
+
+## Important Takeaways
+
+* Infrastructure should be created through code whenever possible.
+* Scripts become reusable building blocks for automation.
+* SDKs are used by applications, while the AWS CLI is primarily used by administrators and engineers.
+* Infrastructure as Code simplifies deployment, updates, and maintenance of cloud resources.

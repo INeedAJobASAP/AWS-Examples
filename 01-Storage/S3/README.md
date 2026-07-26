@@ -66,3 +66,70 @@ Instead of repeatedly typing AWS CLI commands, reusable Bash scripts were create
 Each script accepts command-line arguments, making them reusable for different buckets and environments.
 
 This approach is similar to Infrastructure as Code (IaC), where cloud resources are managed through code rather than manually using the AWS Management Console.
+
+## Automation and Infrastructure as Code
+
+As the course progressed, the focus shifted from manually managing S3 resources to automating them through scripting, SDKs, and Infrastructure as Code (IaC).
+
+Several approaches were introduced:
+
+* Bash scripting
+* PowerShell scripting
+* AWS SDK for Ruby
+* AWS CloudFormation
+* Terraform (brief introduction)
+
+The goal was to demonstrate how cloud resources can be managed programmatically instead of relying on the AWS Management Console.
+
+## Bash Automation
+
+Additional Bash scripts were created to automate repetitive S3 operations such as:
+
+* Deleting every object in a bucket
+* Deleting buckets
+* Listing buckets
+* Listing objects
+* Uploading objects
+* Synchronizing local directories
+
+These scripts validate user input and can be reused for different AWS environments.
+
+## PowerShell
+
+The course introduced the AWS Tools for PowerShell.
+
+PowerShell cmdlets follow a Verb-Noun naming convention, making commands easy to discover and read.
+
+Examples include:
+
+* `New-S3Bucket`
+* `Get-S3Bucket`
+* `Write-S3Object`
+
+PowerShell scripts were used to:
+
+* Create S3 buckets
+* Check if a bucket already exists
+* Generate a text file
+* Upload files to Amazon S3
+
+## AWS SDK
+
+The AWS SDK for Ruby was introduced to demonstrate interacting with Amazon S3 directly from application code.
+
+The SDK was used to:
+
+* Read environment variables
+* Create an S3 client
+* Generate random files
+* Upload objects programmatically
+
+## Infrastructure as Code
+
+The course concluded with an introduction to Infrastructure as Code using AWS CloudFormation.
+
+A CloudFormation template was created to provision an S3 bucket.
+
+Deployment and deletion were performed through the AWS CLI.
+
+Terraform was briefly introduced as a popular third-party, multi-cloud Infrastructure as Code solution.

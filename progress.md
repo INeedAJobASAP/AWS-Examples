@@ -133,3 +133,47 @@ jq
 * Expanded the Amazon S3 documentation.
 * Added advanced AWS CLI examples.
 * Documented Bash scripting concepts and Linux utilities used with AWS CloudShell.
+
+## 2026-07-26 (Session 3)
+
+### Amazon S3
+
+Continued building on Amazon S3 by exploring automation through Bash and PowerShell, using the AWS SDK for Ruby, and introducing Infrastructure as Code with AWS CloudFormation.
+
+### Topics Covered
+
+* Automated S3 tasks with reusable Bash scripts
+* Created a script to delete all objects in a bucket
+* Learned how to use `jq` to process AWS CLI JSON output
+* Explored AWS Tools for PowerShell
+* Created and uploaded files using PowerShell cmdlets
+* Learned the basics of the AWS SDK for Ruby
+* Used Ruby gems to interact with Amazon S3
+* Introduced CloudFormation for Infrastructure as Code
+* Learned about CloudFormation deployments and stack deletion
+* Briefly explored Terraform as a multi-cloud IaC solution
+
+### Commands Practiced
+
+```bash
+aws s3api delete-objects
+aws cloudformation deploy
+aws cloudformation delete-stack
+bundle init
+bundle install
+bundle exec ruby s3.rb
+```
+
+### What I Learned
+
+* Reusable scripts save time and reduce repetitive AWS CLI commands.
+* PowerShell uses a Verb-Noun naming convention for AWS cmdlets.
+* SDKs allow applications to interact with AWS services programmatically.
+* CloudFormation templates define infrastructure as code and support idempotent deployments.
+* Terraform is a widely used third-party Infrastructure as Code tool that supports multiple cloud providers.
+
+### Repository Updates
+
+* Expanded the Amazon S3 documentation with additional CLI examples.
+* Added notes covering Bash scripting, PowerShell, the AWS SDK for Ruby, and CloudFormation.
+* Continued organizing the repository to document both concepts and practical examples.

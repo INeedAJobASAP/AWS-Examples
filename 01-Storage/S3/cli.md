@@ -574,3 +574,152 @@ Install a package (Debian/Ubuntu):
 ```bash
 sudo apt-get install package-name
 ```
+---
+
+# Additional JMESPath Examples
+
+## Return Only the Most Recently Created Bucket
+
+```bash
+aws s3api list-buckets \
+| jq -r '.Buckets | sort_by(.CreationDate) | reverse | .[0] | .Name'
+```
+
+Using `.[0]` returns only the newest bucket.
+
+---
+
+# Delete Every Object in a Bucket
+
+List every object and generate the JSON payload required by `delete-objects`.
+
+```bash
+aws s3api list-objects-v2 \
+  --bucket $BUCKET_NAME \
+  --query "Contents[].Key" \
+| jq -n '{Objects: [inputs | .[] | {Key: .}]}' \
+> /tmp/delete_objects.json
+```
+
+Delete every object.
+
+```bash
+aws s3api delete-objects \
+  --bucket $BUCKET_NAME \
+  --delete file:///tmp/delete_objects.json
+```
+
+---
+
+# PowerShell Commands
+
+Import the AWS S3 module.
+
+```powershell
+Import-Module AWS.Tools.S3
+```
+
+Create a bucket.
+
+```powershell
+New-S3Bucket -BucketName $bucketName -Region us-east-1
+```
+
+Retrieve a bucket.
+
+```powershell
+Get-S3Bucket -BucketName $bucketName
+```
+
+Create a file.
+
+```powershell
+Set-Content -Path $fileName -Value $fileContent
+```
+
+Upload a file.
+
+```powershell
+Write-S3Object -BucketName $bucketName -File $fileName -Key $fileName
+```
+
+Prompt the user.
+
+```powershell
+Read-Host -Prompt "Enter the S3 bucket name"
+```
+
+Display output.
+
+```powershell
+Write-Host "S3 Bucket: $bucketName"
+```
+
+---
+
+# Ruby SDK
+
+Initialize a project.
+
+```bash
+bundle init
+```
+
+Install dependencies.
+
+```bash
+bundle install
+```
+
+Run the application.
+
+```bash
+bundle exec ruby s3.rb
+```
+
+Check versions.
+
+```bash
+ruby --version
+```
+
+```bash
+java -version
+```
+
+---
+
+# CloudFormation
+
+Deploy a stack.
+
+```bash
+aws cloudformation deploy \
+  --template-file template.yaml \
+  --region ca-central-1 \
+  --stack-name $STACK_NAME
+```
+
+Delete a stack.
+
+```bash
+aws cloudformation delete-stack \
+  --stack-name $STACK_NAME \
+  --region us-west-2
+```
+
+---
+
+# Linux Commands
+
+Make scripts executable.
+
+```bash
+chmod u+x filename
+```
+
+Execute a script.
+
+```bash
+./script-name
+```
