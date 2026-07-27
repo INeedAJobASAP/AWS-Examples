@@ -9,9 +9,9 @@ The goal isn't just to complete the certification—it's to understand how AWS s
 ## Repository Structure
 
 * **00-Setup** – AWS account, IAM, AWS CLI, budgets
-* **01-Identity-and-Security** – IAM, Cognito, KMS, Secrets Manager
+* **01-Storage** – S3, EBS, EFS, FSx
 * **02-Compute** – EC2, Lambda, ECS, EKS
-* **03-Storage** – S3, EBS, EFS, FSx
+* **03-Identity-and-Security** – IAM, Cognito, KMS, Secrets Manager
 * **04-Networking** – VPC, Route 53, CloudFront
 * **05-Databases** – RDS, Aurora, DynamoDB, Redshift
 * **06-Monitoring** – CloudWatch, CloudTrail
