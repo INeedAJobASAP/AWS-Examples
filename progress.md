@@ -177,3 +177,42 @@ bundle exec ruby s3.rb
 * Expanded the Amazon S3 documentation with additional CLI examples.
 * Added notes covering Bash scripting, PowerShell, the AWS SDK for Ruby, and CloudFormation.
 * Continued organizing the repository to document both concepts and practical examples.
+
+## 2026-07-27 (Session 4)
+
+### Amazon S3
+
+Wrapped up the Amazon S3 section by exploring several Infrastructure as Code (IaC) tools capable of provisioning S3 resources using code instead of manual configuration.
+
+### Topics Covered
+
+* Introduced Terraform and its workflow
+* Learned about Terraform providers, resources, and state files
+* Explored AWS CDK using TypeScript
+* Learned the difference between the AWS SDK and AWS CDK
+* Briefly introduced Pulumi as another multi-cloud IaC solution
+
+### Commands Practiced
+
+```bash
+terraform init
+terraform apply
+terraform destroy
+cdk bootstrap
+cdk synth
+cdk deploy
+pulumi up
+```
+
+### What I Learned
+
+* Terraform uses providers and resources to manage cloud infrastructure.
+* The `terraform.tfstate` file stores the current infrastructure state and should be protected because it may contain sensitive information.
+* AWS CDK allows infrastructure to be written in programming languages while generating CloudFormation templates behind the scenes.
+* AWS SDKs are intended for application development, whereas AWS CDK is designed specifically for Infrastructure as Code.
+* Pulumi is another Infrastructure as Code platform that supports multiple cloud providers and programming languages.
+
+### Repository Updates
+
+* Expanded the Amazon S3 documentation with notes on Terraform, AWS CDK, and Pulumi.
+* Continued documenting different approaches to Infrastructure as Code for AWS.

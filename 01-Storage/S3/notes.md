@@ -250,3 +250,70 @@ Unlike CloudFormation, Terraform supports multiple cloud providers and is common
 * Scripts become reusable building blocks for automation.
 * SDKs are used by applications, while the AWS CLI is primarily used by administrators and engineers.
 * Infrastructure as Code simplifies deployment, updates, and maintenance of cloud resources.
+
+## Terraform
+
+Terraform interacts with AWS through the AWS Provider.
+
+Providers expose resources that can be managed through Terraform configuration files.
+
+The instructor introduced the following concepts:
+
+* Providers
+* Resources
+* `main.tf`
+* Terraform state (`terraform.tfstate`)
+
+The state file keeps track of deployed infrastructure and contains sensitive information, making it an important file that should be handled securely.
+
+Common Terraform workflow:
+
+1. Initialize the project.
+2. Review the execution plan.
+3. Apply the infrastructure.
+4. Destroy the infrastructure when no longer needed.
+
+## AWS CDK
+
+AWS CDK allows developers to define infrastructure using programming languages instead of YAML.
+
+The instructor demonstrated CDK using TypeScript.
+
+A minimal CDK stack was able to create an S3 bucket with only a few lines of code.
+
+Important CDK concepts:
+
+* Stacks
+* Constructs
+* Bootstrapping
+* Synthesizing CloudFormation templates
+* Deploying infrastructure
+
+### SDK vs CDK
+
+The instructor highlighted the distinction between the two:
+
+**AWS SDK**
+
+* Used by applications.
+* Creates and manages AWS resources programmatically.
+* Best suited for application development.
+
+**AWS CDK**
+
+* Used to define and deploy cloud infrastructure.
+* Generates CloudFormation templates.
+* Best suited for Infrastructure as Code.
+
+## Pulumi
+
+Pulumi is another Infrastructure as Code platform.
+
+Key observations:
+
+* Supports multiple cloud providers.
+* Uses familiar programming languages.
+* Requires local credentials and cloud configuration.
+* Executes deployments from the client machine.
+
+The instructor noted that Pulumi would require additional study beyond this introduction.

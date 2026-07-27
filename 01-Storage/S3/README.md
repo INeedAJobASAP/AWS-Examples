@@ -133,3 +133,42 @@ A CloudFormation template was created to provision an S3 bucket.
 Deployment and deletion were performed through the AWS CLI.
 
 Terraform was briefly introduced as a popular third-party, multi-cloud Infrastructure as Code solution.
+
+## Additional Infrastructure as Code Tools
+
+The course concluded the Amazon S3 section by introducing several Infrastructure as Code (IaC) tools capable of provisioning S3 resources.
+
+Each tool approaches infrastructure differently, but they all aim to automate cloud deployments.
+
+### Terraform
+
+Terraform is a popular third-party Infrastructure as Code tool that supports multiple cloud providers.
+
+Key concepts introduced:
+
+* Providers
+* Resources
+* State management
+* Initialization
+* Applying infrastructure
+* Destroying infrastructure
+
+### AWS CDK
+
+The AWS Cloud Development Kit (CDK) allows developers to define cloud infrastructure using familiar programming languages instead of writing YAML or JSON templates.
+
+A simple TypeScript example was used to provision an S3 bucket inside a CDK stack.
+
+The deployment workflow included:
+
+* Bootstrapping the AWS environment
+* Synthesizing CloudFormation templates
+* Deploying the stack
+
+### Pulumi
+
+Pulumi is another Infrastructure as Code platform that allows cloud infrastructure to be written using programming languages.
+
+Unlike AWS CDK, Pulumi supports multiple cloud providers, making it suitable for multi-cloud environments.
+
+The instructor briefly introduced the Pulumi workflow, while noting that it would require further exploration.

@@ -723,3 +723,57 @@ Execute a script.
 ```bash
 ./script-name
 ```
+
+---
+
+# Terraform
+
+Initialize a Terraform project.
+
+```bash
+terraform init
+```
+
+Apply infrastructure.
+
+```bash
+terraform apply
+```
+
+Destroy infrastructure.
+
+```bash
+terraform destroy
+```
+
+---
+
+# AWS CDK
+
+Bootstrap the AWS environment.
+
+```bash
+cdk bootstrap
+```
+
+Generate the CloudFormation template.
+
+```bash
+cdk synth
+```
+
+Deploy the stack.
+
+```bash
+cdk deploy
+```
+
+---
+
+# Pulumi
+
+Deploy infrastructure.
+
+```bash
+pulumi up
+```
