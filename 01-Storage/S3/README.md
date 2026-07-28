@@ -172,3 +172,60 @@ Pulumi is another Infrastructure as Code platform that allows cloud infrastructu
 Unlike AWS CDK, Pulumi supports multiple cloud providers, making it suitable for multi-cloud environments.
 
 The instructor briefly introduced the Pulumi workflow, while noting that it would require further exploration.
+
+## S3 Buckets and Objects
+
+This section expands on the core concepts of Amazon S3 by exploring bucket architecture, object management, and the metadata associated with stored data.
+
+### S3 Buckets
+
+An S3 bucket is the infrastructure that stores S3 objects.
+
+Topics covered include:
+
+* Bucket naming rules
+* Bucket restrictions and service limits
+* General purpose buckets
+* Directory buckets
+* Virtual folders
+* Bucket versioning
+* Bucket encryption
+* Static website hosting
+
+### S3 Objects
+
+Unlike buckets, S3 objects represent the actual data stored in Amazon S3.
+
+Key concepts explored include:
+
+* ETags
+* Checksums
+* Object prefixes
+* Metadata
+* Object tags
+* Object versioning
+* Object locking
+
+### Detecting Object Changes
+
+ETags can be used to detect whether the contents of an object have changed without downloading the object itself.
+
+Terraform can use an object's MD5 hash to determine when an object should be updated during deployment.
+
+### Data Integrity
+
+Amazon S3 automatically validates uploaded data using checksums.
+
+AWS supports multiple checksum algorithms including:
+
+* MD5
+* CRC32
+* CRC32C
+* SHA1
+* SHA256
+
+### Metadata
+
+Amazon S3 supports both system-defined and user-defined metadata.
+
+System metadata is managed by AWS, while user-defined metadata allows applications to associate custom information with objects.

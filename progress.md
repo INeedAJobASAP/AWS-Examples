@@ -216,3 +216,48 @@ pulumi up
 
 * Expanded the Amazon S3 documentation with notes on Terraform, AWS CDK, and Pulumi.
 * Continued documenting different approaches to Infrastructure as Code for AWS.
+
+## 2026-07-28
+
+### Amazon S3
+
+Continued studying Amazon S3 by focusing on bucket architecture, object management, metadata, checksums, and object change detection using Terraform.
+
+### Topics Covered
+
+* Learned S3 bucket naming rules and service limitations
+* Compared general purpose and directory buckets
+* Explored virtual folders and object prefixes
+* Studied ETags and their role in detecting content changes
+* Learned how Terraform uses `filemd5()` to track object updates
+* Explored checksum algorithms used for data integrity
+* Learned the difference between system-defined and user-defined metadata
+* Uploaded objects with custom metadata using the AWS CLI
+
+### Commands Practiced
+
+```bash
+aws s3 mb
+aws s3 cp
+aws s3api head-object
+aws s3api put-object
+md5sum
+terraform plan
+terraform apply --auto-approve
+terraform destroy
+```
+
+### What I Learned
+
+* Buckets are infrastructure, while objects represent the actual stored data.
+* S3 folders are virtual prefixes rather than real directories.
+* ETags can be used to detect changes to object contents without downloading the object.
+* Checksums verify data integrity during uploads and downloads.
+* Metadata provides descriptive information about an object without changing its contents.
+* Terraform can detect object changes using file hashes, making object updates manageable through Infrastructure as Code.
+
+### Repository Updates
+
+* Expanded the Amazon S3 documentation with bucket and object concepts.
+* Added notes covering ETags, checksums, metadata, prefixes, and bucket limitations.
+* Documented additional AWS CLI and Terraform examples.

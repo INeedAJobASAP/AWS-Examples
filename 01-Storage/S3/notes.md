@@ -317,3 +317,139 @@ Key observations:
 * Executes deployments from the client machine.
 
 The instructor noted that Pulumi would require additional study beyond this introduction.
+
+## S3 Buckets
+
+An S3 bucket is infrastructure that stores S3 objects.
+
+Although Amazon S3 is a global service, every bucket is created in a specific AWS Region.
+
+### Bucket Naming Rules
+
+Important rules include:
+
+* 3–63 characters
+* Lowercase letters only
+* Numbers, hyphens (`-`), and periods (`.`) are allowed
+* Must start and end with a letter or number
+* Cannot contain adjacent periods
+* Cannot resemble an IP address
+* Must be globally unique within an AWS partition
+* Cannot contain uppercase letters, underscores, or spaces
+
+### Bucket Restrictions
+
+Key service limits discussed:
+
+* Default limit of 100 general purpose buckets per account
+* Bucket quota can be increased through AWS Support
+* Buckets must be emptied before deletion
+* Unlimited bucket size
+* Unlimited number of objects
+* Individual objects can be up to 5 TB
+* Multipart uploads are recommended for files larger than 100 MB
+
+## Bucket Types
+
+### General Purpose Buckets
+
+Recommended for nearly every workload.
+
+Characteristics:
+
+* Flat object namespace
+* Supports nearly every S3 storage class
+* No practical prefix limits
+
+### Directory Buckets
+
+Designed for S3 Express One Zone.
+
+Characteristics:
+
+* Directory hierarchy
+* Extremely low latency
+* Horizontal directory scaling
+
+## Virtual Folders
+
+Folders displayed in the AWS Console are not actual directories.
+
+They are zero-byte objects ending with a forward slash (`/`) that exist only to organize object prefixes.
+
+## ETags
+
+An ETag identifies a specific version of an object's contents.
+
+Important observations:
+
+* Changes when object contents change
+* Metadata changes do not affect the ETag
+* May or may not equal the MD5 hash depending on encryption
+* Frequently used for cache validation and change detection
+
+Terraform can use `filemd5()` to detect changes in local files before updating S3 objects.
+
+## Checksums
+
+Checksums verify data integrity during uploads and downloads.
+
+Supported algorithms include:
+
+* MD5
+* CRC32
+* CRC32C
+* SHA1
+* SHA256
+
+The instructor noted that checksum validation can occasionally be confusing due to encoding differences.
+
+## Object Prefixes
+
+Object prefixes simulate folders inside S3.
+
+Example object key:
+
+```text
+/assets/images/photo.jpg
+```
+
+Prefix:
+
+```text
+/assets/images/
+```
+
+Filename:
+
+```text
+photo.jpg
+```
+
+The entire object key (prefix + filename) cannot exceed 1024 bytes.
+
+## Metadata
+
+Metadata describes the object rather than its contents.
+
+Two categories exist:
+
+### System Metadata
+
+Managed by AWS.
+
+Examples include:
+
+* Content-Type
+* Cache-Control
+* Content-Encoding
+* Content-Language
+* Expires
+
+Some values, such as `Content-Type`, can be modified.
+
+### User Metadata
+
+Defined by the user.
+
+Custom metadata keys are stored using the `x-amz-meta-` prefix and can be used by applications for categorization, version tracking, compliance, and other business requirements.

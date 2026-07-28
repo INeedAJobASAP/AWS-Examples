@@ -777,3 +777,112 @@ Deploy infrastructure.
 ```bash
 pulumi up
 ```
+---
+
+# Checksums
+
+Create a bucket.
+
+```bash
+aws s3 mb s3://checksums-example-bucket
+```
+
+Create a file.
+
+```bash
+echo "Hello Mars" > myfile.txt
+```
+
+Generate an MD5 checksum.
+
+```bash
+md5sum myfile.txt
+```
+
+Upload the object.
+
+```bash
+aws s3 cp myfile.txt s3://checksums-example-bucket
+```
+
+Retrieve object metadata.
+
+```bash
+aws s3api head-object \
+  --bucket checksums-example-bucket \
+  --key myfile.txt
+```
+
+---
+
+# Metadata
+
+Create a bucket.
+
+```bash
+aws s3 mb s3://metadata-example-bucket
+```
+
+Create a file.
+
+```bash
+echo "Hello Mars" > hello.txt
+```
+
+Upload an object with metadata.
+
+```bash
+aws s3api put-object \
+  --bucket metadata-example-bucket \
+  --key hello.txt \
+  --body hello.txt \
+  --metadata Planet=Mars
+```
+
+Retrieve metadata.
+
+```bash
+aws s3api head-object \
+  --bucket metadata-example-bucket \
+  --key hello.txt
+```
+
+Delete the object.
+
+```bash
+aws s3 rm s3://metadata-example-bucket/hello.txt
+```
+
+Delete the bucket.
+
+```bash
+aws s3 rb s3://metadata-example-bucket
+```
+
+---
+
+# Terraform
+
+Generate an MD5 hash for Terraform change detection.
+
+```hcl
+etag = filemd5("myfile.txt")
+```
+
+Review planned infrastructure changes.
+
+```bash
+terraform plan
+```
+
+Apply infrastructure automatically.
+
+```bash
+terraform apply --auto-approve
+```
+
+Destroy infrastructure.
+
+```bash
+terraform destroy
+```
