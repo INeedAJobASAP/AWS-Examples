@@ -229,3 +229,292 @@ AWS supports multiple checksum algorithms including:
 Amazon S3 supports both system-defined and user-defined metadata.
 
 System metadata is managed by AWS, while user-defined metadata allows applications to associate custom information with objects.
+
+# Object Lock (WORM)
+
+## What is WORM?
+
+**Write Once Read Many (WORM)** is a storage compliance feature that makes data immutable. Once data is written, it cannot be modified or deleted, but it can be read an unlimited number of times.
+
+Common use cases include:
+
+* Financial records
+* Healthcare data
+* Legal documents
+* Regulatory compliance
+* Audit logs
+
+A simple analogy is a video game cartridge. The game data is written once and can be played repeatedly, but the contents cannot be changed.
+
+---
+
+## Amazon S3 Object Lock
+
+Amazon S3 Object Lock prevents objects from being modified or deleted for a specified period of time or indefinitely.
+
+### Important Points
+
+* Must be enabled when the bucket is created.
+* Cannot be enabled later.
+* Helps satisfy regulatory requirements.
+* Supports the WORM model.
+* Compliant with regulations such as **SEC 17a-4** and **FINRA**.
+
+### Protection Methods
+
+Objects can be protected using:
+
+* **Retention Periods**
+* **Legal Holds**
+
+> **Note:** Object Lock configuration can only be configured through the AWS API (CLI or SDK), not through the AWS Management Console.
+
+---
+
+# S3 URI
+
+S3 resources are commonly referenced using the URI format:
+
+```text
+s3://bucket-name/object-name
+```
+
+### Example
+
+```text
+s3://my-images/photo.jpg
+```
+
+This format is used extensively throughout the AWS CLI.
+
+---
+
+# AWS S3 Command Families
+
+AWS provides several command groups for interacting with Amazon S3.
+
+## aws s3
+
+High-level commands for everyday bucket and object operations.
+
+### Common Operations
+
+* Copy
+* Sync
+* Move
+* Delete
+
+---
+
+## aws s3api
+
+Low-level API access.
+
+Provides access to nearly every S3 API operation and returns structured JSON responses.
+
+---
+
+## aws s3control
+
+Used for advanced administrative features such as:
+
+* Access Points
+* Batch Operations
+* Storage Lens
+* S3 Outposts Management
+
+> **Note:** Most day-to-day work does not require `aws s3control`.
+
+---
+
+## aws s3outposts
+
+Used only when working with Amazon S3 on AWS Outposts.
+
+---
+
+# Request Styles
+
+Amazon S3 supports two REST request styles.
+
+## Virtual Hosted Style
+
+```text
+bucket-name.s3.us-east-1.amazonaws.com
+```
+
+* Recommended request style.
+* AWS is moving toward this approach.
+
+---
+
+## Path Style
+
+```text
+s3.us-east-1.amazonaws.com/bucket-name
+```
+
+* Legacy request style.
+* Being deprecated.
+
+### AWS CLI Configuration
+
+AWS CLI can be configured to always use Virtual Hosted Style requests.
+
+---
+
+# Dualstack Endpoints
+
+Amazon S3 provides two endpoint types.
+
+## Standard Endpoint
+
+* IPv4 only
+
+## Dualstack Endpoint
+
+* IPv4
+* IPv6
+
+Dualstack endpoints are intended to support the transition toward IPv6.
+
+---
+
+# S3 Storage Classes
+
+Amazon S3 provides multiple storage classes designed around different trade-offs between:
+
+* Cost
+* Performance
+* Availability
+* Durability
+* Retrieval Speed
+
+### Storage Classes Covered
+
+* S3 Standard
+* S3 Standard-IA
+* S3 One Zone-IA
+* S3 Intelligent Tiering
+* S3 Express One Zone
+* S3 Glacier Instant Retrieval
+* S3 Glacier Flexible Retrieval
+* S3 Glacier Deep Archive
+* S3 Reduced Redundancy Storage (Legacy)
+
+---
+
+## S3 Standard
+
+The default storage class.
+
+### Characteristics
+
+* 99.999999999% durability (11 nines)
+* 99.99% availability
+* Multi-AZ storage
+* Millisecond retrieval
+* No retrieval fees
+* No minimum storage duration
+
+### Best For
+
+Frequently accessed data.
+
+---
+
+## S3 Reduced Redundancy Storage (RRS)
+
+Legacy storage class.
+
+Originally introduced as a cheaper alternative to Standard storage.
+
+### Important Note
+
+Today it offers no practical advantage and is **not recommended**.
+
+---
+
+## S3 Standard-Infrequent Access (Standard-IA)
+
+Designed for data that is rarely accessed but still requires fast retrieval.
+
+### Characteristics
+
+* 11 nines durability
+* 99.9% availability
+* Multi-AZ storage
+* Retrieval fee
+* 30-day minimum storage duration
+
+### Best For
+
+* Backups
+* Disaster recovery
+* Long-term storage with occasional access
+
+---
+
+## S3 Express One Zone
+
+A high-performance storage class designed for latency-sensitive workloads.
+
+### Features
+
+* Single-digit millisecond latency
+* Up to 10× faster than Standard
+* Around 50% lower request cost
+* Uses Directory Buckets
+* Stores data in a single Availability Zone
+
+---
+
+## S3 One Zone-IA
+
+Lower-cost version of Standard-IA.
+
+### Characteristics
+
+* Single Availability Zone
+* Lower availability
+* Retrieval fee
+* 30-day minimum storage duration
+
+### Best For
+
+Data that can be recreated if lost.
+
+---
+
+# Glacier Storage Classes
+
+Amazon S3 provides several Glacier storage classes for long-term archival.
+
+## Glacier Instant Retrieval
+
+### Characteristics
+
+* Millisecond retrieval
+* 90-day minimum storage duration
+* Retrieval fee
+
+---
+
+## Glacier Flexible Retrieval
+
+### Characteristics
+
+* Retrieval in minutes to hours
+* Suitable for long-term archives
+
+---
+
+## Glacier Deep Archive
+
+### Characteristics
+
+* Lowest storage cost
+* Retrieval may take around 12 hours
+* Intended for long-term archival storage
+
+> Unlike the older **S3 Glacier Vault** service, Glacier storage classes integrate directly with standard S3 buckets.

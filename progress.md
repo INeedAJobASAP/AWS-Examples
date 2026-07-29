@@ -261,3 +261,51 @@ terraform destroy
 * Expanded the Amazon S3 documentation with bucket and object concepts.
 * Added notes covering ETags, checksums, metadata, prefixes, and bucket limitations.
 * Documented additional AWS CLI and Terraform examples.
+
+## 2026-07-29
+
+### Amazon S3 (Bucket Features & Storage Classes)
+
+Continued exploring Amazon S3 by studying bucket features, object protection, request styles, and the different storage classes available for various workloads.
+
+### Topics Covered
+
+- WORM (Write Once Read Many)
+- S3 Object Lock
+- Bucket URIs
+- AWS S3 command families (`aws s3`, `aws s3api`, `aws s3control`)
+- Virtual-hosted vs Path-style requests
+- Dualstack endpoints
+- S3 Standard
+- Standard-IA
+- One Zone-IA
+- Express One Zone
+- Glacier storage classes
+- Reduced Redundancy Storage (legacy)
+
+### Commands Practiced
+
+```bash
+aws configure set s3.addressing_style virtual
+```
+
+```bash
+aws s3 cp hello.txt s3://bucket-name --storage-class STANDARD_IA
+```
+
+```bash
+aws s3api put-object \
+--bucket bucket-name \
+--key hello.txt \
+--body hello.txt \
+--object-lock-mode GOVERNANCE \
+--object-lock-retain-until-date "2027-01-01T00:00:00Z"
+```
+
+### What I Learned
+
+- WORM makes objects immutable for compliance and auditing.
+- Object Lock must be enabled when the bucket is created.
+- Different S3 command families serve different levels of abstraction.
+- Virtual-hosted style requests are replacing path-style requests.
+- Choosing the correct storage class is a trade-off between cost, availability, durability, and retrieval speed.

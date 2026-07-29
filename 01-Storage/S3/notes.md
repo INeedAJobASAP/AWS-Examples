@@ -453,3 +453,188 @@ Some values, such as `Content-Type`, can be modified.
 Defined by the user.
 
 Custom metadata keys are stored using the `x-amz-meta-` prefix and can be used by applications for categorization, version tracking, compliance, and other business requirements.
+
+# WORM (Write Once Read Many)
+
+- WORM makes data immutable. Once written, an object cannot be modified or deleted until its retention expires.
+- Commonly used for regulatory compliance, auditing, healthcare, finance, and legal records.
+- Objects remain readable even while protected.
+
+---
+
+# S3 Object Lock
+
+- Object Lock implements the WORM model for S3 objects.
+- Must be enabled **when the bucket is created** and cannot be enabled later.
+- Protects objects from accidental or intentional deletion.
+- Supports two protection methods:
+  - **Retention Period** – locks an object until a specific date.
+  - **Legal Hold** – locks an object indefinitely until manually removed.
+- Object Lock settings are configured through the AWS API (CLI or SDK), not the AWS Management Console.
+- Buckets with Object Lock enabled cannot be used as destinations for Server Access Logging.
+
+---
+
+# S3 URI
+
+- S3 resources are referenced using the `s3://` URI format.
+- Format:
+
+```text
+s3://bucket-name/object-key
+```
+
+- Used extensively by AWS CLI commands such as `cp`, `sync`, `mv`, and `rm`.
+
+---
+
+# AWS S3 Command Families
+
+### aws s3
+
+- High-level interface.
+- Simplifies everyday bucket and object operations.
+- Best choice for most administrative tasks.
+
+### aws s3api
+
+- Low-level interface.
+- Maps closely to the S3 API.
+- Returns structured JSON responses.
+- Provides access to advanced configuration options.
+
+### aws s3control
+
+- Used for advanced S3 administration.
+- Common use cases include:
+  - Access Points
+  - Batch Operations
+  - Storage Lens
+  - S3 Outposts management
+
+### aws s3outposts
+
+- Only used when managing Amazon S3 on AWS Outposts.
+
+---
+
+# Request Styles
+
+There are two ways REST requests reference an S3 bucket.
+
+### Virtual Hosted Style
+
+```
+bucket-name.s3.region.amazonaws.com
+```
+
+- Preferred method.
+- AWS is moving toward this style.
+
+### Path Style
+
+```
+s3.region.amazonaws.com/bucket-name
+```
+
+- Legacy request style.
+- Being deprecated.
+
+---
+
+# Dualstack Endpoints
+
+Amazon S3 supports two endpoint types.
+
+Standard Endpoint
+
+- IPv4 only.
+
+Dualstack Endpoint
+
+- Supports both IPv4 and IPv6.
+- Designed to support the transition toward IPv6.
+
+---
+
+# S3 Storage Classes
+
+Storage classes trade off:
+
+- Cost
+- Availability
+- Durability
+- Retrieval speed
+- Retrieval cost
+
+Always choose the storage class based on how frequently data will be accessed.
+
+---
+
+# S3 Standard
+
+- Default storage class.
+- Multi-AZ.
+- 11 nines durability.
+- 99.99% availability.
+- Millisecond access.
+- No retrieval fees.
+- Best for frequently accessed data.
+
+---
+
+# S3 Standard-IA
+
+- Multi-AZ.
+- Intended for infrequently accessed data.
+- Retrieval fee applies.
+- 30-day minimum storage duration.
+- Good for backups and disaster recovery.
+
+---
+
+# S3 One Zone-IA
+
+- Stores data in a single Availability Zone.
+- Lower availability than Standard-IA.
+- Cheapest IA storage class.
+- Suitable only for data that can be recreated.
+
+---
+
+# S3 Express One Zone
+
+- Uses Directory Buckets.
+- Lowest latency S3 storage class.
+- Up to 10× faster data access than Standard.
+- Designed for latency-sensitive workloads.
+- Supports only a single Availability Zone.
+
+---
+
+# S3 Glacier Storage Classes
+
+### Glacier Instant Retrieval
+
+- Immediate retrieval.
+- Lowest-cost option for data that still requires instant access.
+- 90-day minimum storage duration.
+
+### Glacier Flexible Retrieval
+
+- Retrieval takes minutes to hours.
+- Designed for long-term archives.
+
+### Glacier Deep Archive
+
+- Lowest storage cost.
+- Retrieval may take around 12 hours.
+- Intended for data that is rarely accessed.
+
+---
+
+# Reduced Redundancy Storage (RRS)
+
+- Legacy storage class.
+- Originally introduced before Standard storage became less expensive.
+- No longer recommended for new workloads.

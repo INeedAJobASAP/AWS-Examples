@@ -886,3 +886,35 @@ Destroy infrastructure.
 ```bash
 terraform destroy
 ```
+## Configure Virtual Hosted Style
+
+```bash
+aws configure set s3.addressing_style virtual
+```
+
+Configure the AWS CLI to always use virtual-hosted style requests instead of path-style requests.
+
+---
+
+## Upload an Object with Standard-IA Storage Class
+
+```bash
+aws s3 cp hello.txt s3://bucket-name --storage-class STANDARD_IA
+```
+
+Upload an object directly into the Standard-IA storage class.
+
+---
+
+## Upload an Object with Object Lock
+
+```bash
+aws s3api put-object \
+--bucket bucket-name \
+--key hello.txt \
+--body hello.txt \
+--object-lock-mode GOVERNANCE \
+--object-lock-retain-until-date "2027-01-01T00:00:00Z"
+```
+
+Upload an object with Object Lock enabled using **Governance Mode** until the specified retention date.
