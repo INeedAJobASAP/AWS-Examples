@@ -518,3 +518,152 @@ Amazon S3 provides several Glacier storage classes for long-term archival.
 * Intended for long-term archival storage
 
 > Unlike the older **S3 Glacier Vault** service, Glacier storage classes integrate directly with standard S3 buckets.
+
+# Additional S3 Storage Classes
+
+## S3 Glacier Flexible Retrieval
+
+S3 Glacier Flexible Retrieval (formerly Amazon S3 Glacier) combines Amazon S3 and Glacier into a single API while providing lower-cost archival storage with multiple retrieval options.
+
+### Retrieval Tiers
+
+| Tier | Retrieval Time | Notes |
+|------|----------------|------|
+| Expedited | 1–5 minutes | Fastest retrieval, limited to 250 MB archives |
+| Standard | 3–5 hours | Default retrieval option |
+| Bulk | 5–12 hours | Lowest-cost retrieval for very large archives |
+
+### Important Notes
+
+- Retrieval costs are charged separately from storage costs.
+- Archived objects include approximately **40 KB** of additional metadata.
+- Storing fewer large files is generally more cost-effective than storing many small files.
+- Glacier Flexible Retrieval is a storage class and **does not require Glacier Vaults**.
+
+---
+
+## S3 Glacier Deep Archive
+
+Glacier Deep Archive provides Amazon S3's lowest-cost storage option for long-term archival.
+
+### Retrieval Tiers
+
+| Tier | Retrieval Time |
+|------|----------------|
+| Standard | 12–48 hours |
+| Bulk | 12–48 hours |
+
+### Characteristics
+
+- Lowest storage cost
+- No expedited retrieval option
+- 40 KB of archive metadata per object
+- Ideal for compliance archives and long-term backups
+- Does not require Glacier Vaults
+
+---
+
+## S3 Intelligent-Tiering
+
+Amazon S3 Intelligent-Tiering automatically moves objects between storage tiers based on access patterns.
+
+### Automatic Tiers
+
+- Frequent Access
+- Infrequent Access (after 30 days)
+- Archive Instant Access (after 90 days)
+
+### Optional Archive Tiers
+
+- Archive Access
+- Deep Archive Access (after 180 days)
+
+### Notes
+
+- AWS automatically monitors object access.
+- Monitoring incurs a small monthly fee.
+- Useful when future access patterns are unknown.
+
+---
+
+# Amazon S3 Security Overview
+
+Amazon S3 includes multiple security mechanisms for protecting buckets and objects.
+
+Topics covered include:
+
+- Bucket Policies
+- Access Control Lists (ACLs)
+- Block Public Access
+- AWS PrivateLink
+- CORS
+- IAM Access Analyzer
+- Object Ownership
+- Access Points
+- Access Grants
+- Versioning
+- MFA Delete
+- Object Tags
+- Encryption (In-transit, Server-side, Client-side)
+- Compliance Validation
+
+---
+
+## Block Public Access
+
+Block Public Access is enabled by default and protects buckets from accidental public exposure.
+
+AWS provides four independent settings:
+
+- Block new ACLs
+- Ignore existing ACLs
+- Block public bucket policies
+- Restrict public bucket policies
+
+One of the most common AWS security misconfigurations is leaving S3 buckets publicly accessible.
+
+---
+
+## Access Control Lists (ACLs)
+
+ACLs are the original S3 permission model.
+
+Characteristics:
+
+- Grant permissions only to AWS accounts.
+- Cannot grant conditional permissions.
+- Cannot explicitly deny permissions.
+- Mainly used for legacy cross-account access.
+
+Today, AWS recommends using **Bucket Policies** or **Access Points** instead.
+
+---
+
+## Bucket Policies vs IAM Policies
+
+### Bucket Policies
+
+- Apply only to one bucket.
+- Can specify multiple principals.
+- Excellent for cross-account access.
+- Controlled by Block Public Access settings.
+
+### IAM Policies
+
+- Apply to IAM users, groups, or roles.
+- Can grant permissions across multiple AWS services.
+- Can manage permissions for multiple buckets simultaneously.
+
+---
+
+## S3 Access Grants
+
+Amazon S3 Access Grants simplify granting access to S3 data through external identity providers.
+
+Supported identity sources include:
+
+- IAM Identity Center
+- Active Directory
+- Okta
+
+Access Grants provide temporary credentials and allow fine-grained access to specific prefixes within buckets.

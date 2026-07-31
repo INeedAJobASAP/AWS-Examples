@@ -638,3 +638,76 @@ Always choose the storage class based on how frequently data will be accessed.
 - Legacy storage class.
 - Originally introduced before Standard storage became less expensive.
 - No longer recommended for new workloads.
+
+# Glacier Flexible Retrieval
+
+- Formerly called Amazon S3 Glacier.
+- Supports Expedited, Standard, and Bulk retrieval.
+- Retrieval cost is separate from storage cost.
+- Archived objects include approximately 40 KB of metadata.
+- Better to archive fewer large files than many small files.
+- Does not require Glacier Vaults.
+
+---
+
+# Glacier Deep Archive
+
+- Lowest-cost S3 storage class.
+- Retrieval takes 12–48 hours.
+- No expedited retrieval option.
+- Designed for compliance and long-term archival.
+
+---
+
+# Intelligent-Tiering
+
+- Automatically moves objects based on usage.
+- Frequent Access → Infrequent Access → Archive Instant Access.
+- Optional Archive Access and Deep Archive Access tiers.
+- AWS charges a small monitoring fee.
+
+---
+
+# Block Public Access
+
+- Enabled by default.
+- Protects buckets from accidental public exposure.
+- One of the most important S3 security features.
+- Applies independently to ACLs and Bucket Policies.
+
+---
+
+# Access Control Lists (ACLs)
+
+- Legacy permission model.
+- Only grants permissions to AWS accounts.
+- Cannot explicitly deny permissions.
+- Cannot create conditional access.
+- Rarely used in modern AWS environments.
+- Bucket Policies and Access Points are generally preferred.
+
+---
+
+# Bucket Policies
+
+- Resource-based policies.
+- Applied directly to buckets.
+- Ideal for cross-account access.
+- Can specify multiple principals.
+
+---
+
+# IAM Policies
+
+- Identity-based policies.
+- Attached to IAM users, groups, or roles.
+- Can grant access across many AWS services.
+- Better when permissions belong to an identity rather than a resource.
+
+---
+
+# Access Grants
+
+- Integrates S3 with enterprise identity providers.
+- Supports temporary credentials.
+- Provides fine-grained access to bucket prefixes.

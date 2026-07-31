@@ -918,3 +918,104 @@ aws s3api put-object \
 ```
 
 Upload an object with Object Lock enabled using **Governance Mode** until the specified retention date.
+
+## Upload using Intelligent-Tiering
+
+```bash
+aws s3api put-object \
+--bucket my-bucket \
+--key myfile \
+--body path/to/local/file \
+--storage-class INTELLIGENT_TIERING
+```
+
+Upload an object using the Intelligent-Tiering storage class.
+
+---
+
+## Disable Block Public Access for ACLs
+
+```bash
+aws s3api put-public-access-block \
+--bucket bucket-name \
+--public-access-block-configuration "BlockPublicAcls=false,IgnorePublicAcls=false,BlockPublicPolicy=true,RestrictPublicBuckets=true"
+```
+
+Modify Block Public Access settings.
+
+---
+
+## View Block Public Access Configuration
+
+```bash
+aws s3api get-public-access-block \
+--bucket bucket-name
+```
+
+Display the current Block Public Access configuration.
+
+---
+
+## Configure Object Ownership
+
+```bash
+aws s3api put-bucket-ownership-controls \
+--bucket bucket-name \
+--ownership-controls="Rules=[{ObjectOwnership=BucketOwnerPreferred}]"
+```
+
+Configure bucket ownership controls.
+
+---
+
+## Apply a Bucket ACL
+
+```bash
+aws s3api put-bucket-acl \
+--bucket bucket-name \
+--access-control-policy file://policy.json
+```
+
+Apply an ACL stored in a JSON policy file.
+
+---
+
+## Upload an Object
+
+```bash
+touch bootcamp.txt
+
+aws s3 cp bootcamp.txt s3://bucket-name
+```
+
+Upload an object to an S3 bucket.
+
+---
+
+## List Bucket Contents
+
+```bash
+aws s3 ls s3://bucket-name
+```
+
+List objects stored in a bucket.
+
+---
+
+## Remove an Object
+
+```bash
+aws s3 rm s3://bucket-name/bootcamp.txt
+```
+
+Delete an object.
+
+---
+
+## Remove a Bucket
+
+```bash
+aws s3 rb s3://bucket-name
+```
+
+Delete an empty bucket.

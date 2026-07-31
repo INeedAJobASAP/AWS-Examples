@@ -309,3 +309,51 @@ aws s3api put-object \
 - Different S3 command families serve different levels of abstraction.
 - Virtual-hosted style requests are replacing path-style requests.
 - Choosing the correct storage class is a trade-off between cost, availability, durability, and retrieval speed.
+
+## 2026-07-31
+
+### Amazon S3 (Storage Classes & Security)
+
+Continued studying Amazon S3 by exploring the remaining storage classes and the security mechanisms used to control access to buckets and objects.
+
+### Topics Covered
+
+- Glacier Flexible Retrieval
+- Glacier Deep Archive
+- Intelligent-Tiering
+- S3 Security Overview
+- Block Public Access
+- Access Control Lists (ACLs)
+- Bucket Policies
+- IAM Policies
+- S3 Access Grants
+
+### Commands Practiced
+
+```bash
+aws s3api put-object --storage-class INTELLIGENT_TIERING
+```
+
+```bash
+aws s3api put-public-access-block
+```
+
+```bash
+aws s3api get-public-access-block
+```
+
+```bash
+aws s3api put-bucket-acl
+```
+
+```bash
+aws s3api put-bucket-ownership-controls
+```
+
+### What I Learned
+
+- Glacier storage classes trade retrieval speed for lower storage costs.
+- Intelligent-Tiering automatically optimizes storage costs based on object access.
+- Block Public Access is one of the most important S3 security features.
+- ACLs are considered legacy, while Bucket Policies and Access Points are the preferred access-control mechanisms.
+- Bucket Policies and IAM Policies solve similar problems but operate on different types of AWS resources.
