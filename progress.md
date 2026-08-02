@@ -357,3 +357,43 @@ aws s3api put-bucket-ownership-controls
 - Block Public Access is one of the most important S3 security features.
 - ACLs are considered legacy, while Bucket Policies and Access Points are the preferred access-control mechanisms.
 - Bucket Policies and IAM Policies solve similar problems but operate on different types of AWS resources.
+
+## 2026-08-01
+
+### S3 Security and CORS (Session 2)
+
+Continued studying Amazon S3 security and networking features.
+
+#### Topics Covered
+
+- IAM Access Analyzer for S3
+- Internetwork Traffic Privacy
+- AWS PrivateLink
+- VPC Gateway Endpoints
+- Cross-Origin Resource Sharing (CORS)
+- Static Website Hosting
+- Bucket Policies
+- Browser Same-Origin Policy
+- API Gateway Mock Integration
+- CORS configuration for S3 buckets
+
+#### Practical Work
+
+- Created multiple static website buckets
+- Configured Bucket Policies
+- Modified Block Public Access settings
+- Enabled Static Website Hosting
+- Uploaded HTML and JavaScript assets
+- Retrieved website endpoints
+- Created an API Gateway mock endpoint
+- Tested cross-origin browser requests
+- Configured S3 CORS rules
+- Observed browser behavior with and without CORS enabled
+
+#### What I Learned
+
+- Public buckets are not automatically accessible from browsers due to the Same-Origin Policy.
+- CORS is enforced by web browsers rather than Amazon S3 itself.
+- AWS PrivateLink and Gateway Endpoints provide private connectivity without using the public Internet.
+- IAM Access Analyzer helps detect unintentionally exposed S3 buckets.
+- Static website hosting, bucket policies, and CORS are commonly used together when serving web applications from S3.

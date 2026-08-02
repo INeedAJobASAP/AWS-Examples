@@ -1019,3 +1019,122 @@ aws s3 rb s3://bucket-name
 ```
 
 Delete an empty bucket.
+
+---
+
+## Create a Bucket
+
+```bash
+aws s3 mb s3://bucket-name
+```
+
+Create a new S3 bucket.
+
+---
+
+## Configure Block Public Access
+
+```bash
+aws s3api put-public-access-block \
+--bucket bucket-name \
+--public-access-block-configuration "BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=false,RestrictPublicBuckets=false"
+```
+
+Modify Block Public Access settings.
+
+---
+
+## Apply a Bucket Policy
+
+```bash
+aws s3api put-bucket-policy \
+--bucket bucket-name \
+--policy file://bucket-policy.json
+```
+
+Attach a bucket policy.
+
+---
+
+## Enable Static Website Hosting
+
+```bash
+aws s3api put-bucket-website \
+--bucket bucket-name \
+--website-configuration file://website.json
+```
+
+Configure an S3 bucket for static website hosting.
+
+---
+
+## Upload Website Files
+
+```bash
+aws s3 cp index.html s3://bucket-name
+```
+
+Upload the website's home page.
+
+```bash
+aws s3 cp hello.js s3://bucket-name
+```
+
+Upload a JavaScript file.
+
+---
+
+## Retrieve Website Endpoint
+
+```bash
+aws s3api get-bucket-website \
+--bucket bucket-name
+```
+
+Retrieve the static website endpoint configuration.
+
+---
+
+## Test an API Gateway Endpoint
+
+```bash
+curl -X POST \
+-H "Content-Type: application/json" \
+https://your-api-id.execute-api.region.amazonaws.com/prod/hello
+```
+
+Send a request to an API Gateway endpoint for testing.
+
+---
+
+## Configure Bucket CORS
+
+```bash
+aws s3api put-bucket-cors \
+--bucket bucket-name \
+--cors-configuration file://cors.json
+```
+
+Apply a CORS configuration to a bucket.
+
+---
+
+## View Bucket CORS
+
+```bash
+aws s3api get-bucket-cors \
+--bucket bucket-name
+```
+
+Retrieve the current CORS configuration.
+
+---
+
+## Remove Bucket CORS
+
+```bash
+aws s3api delete-bucket-cors \
+--bucket bucket-name
+```
+
+Delete the CORS configuration from a bucket.

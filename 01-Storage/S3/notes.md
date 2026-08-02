@@ -711,3 +711,167 @@ Always choose the storage class based on how frequently data will be accessed.
 - Integrates S3 with enterprise identity providers.
 - Supports temporary credentials.
 - Provides fine-grained access to bucket prefixes.
+
+---
+
+# Amazon S3 CORS Lab
+
+## IAM Access Analyzer for S3
+
+### What is IAM Access Analyzer?
+
+IAM Access Analyzer for Amazon S3 helps identify buckets that are accessible from:
+
+- The public Internet
+- Other AWS accounts
+
+It continuously analyzes bucket permissions and alerts you about potentially risky configurations.
+
+### Requirements
+
+Before Access Analyzer can inspect your S3 buckets, you must first create an **IAM Access Analyzer** for your AWS account.
+
+### Console Features
+
+The S3 console can display:
+
+- Buckets with public access
+- Buckets shared with other AWS accounts
+- Region selector for reviewing buckets in different regions
+- Downloadable security reports
+
+This makes it easier to identify and remediate accidentally exposed buckets.
+
+---
+
+## Internetwork Traffic Privacy
+
+### What is Internetwork Traffic Privacy?
+
+Internetwork Traffic Privacy refers to keeping network traffic private while data travels between AWS services.
+
+Instead of routing traffic across the public Internet, AWS provides private networking options.
+
+### AWS PrivateLink
+
+AWS PrivateLink creates Interface Endpoints (ENIs) inside your VPC.
+
+Features:
+
+- Private connectivity to AWS services
+- Supports cross-account communication
+- Supports selected Marketplace services
+- Supports Endpoint Policies
+- Additional cost
+
+### VPC Gateway Endpoints
+
+Gateway Endpoints provide private connectivity to:
+
+- Amazon S3
+- Amazon DynamoDB
+
+Characteristics:
+
+- Free
+- Traffic stays inside AWS
+- Cannot be used cross-account
+- Simpler permission model
+
+---
+
+## Cross-Origin Resource Sharing (CORS)
+
+### What is CORS?
+
+Cross-Origin Resource Sharing (CORS) is an HTTP mechanism that allows browsers to request resources from a different origin.
+
+An origin consists of:
+
+- Protocol
+- Domain
+- Port
+
+Browsers normally block cross-origin requests unless the destination explicitly allows them.
+
+### Common CORS Headers
+
+Request Headers
+
+- Origin
+- Access-Control-Request-Method
+- Access-Control-Request-Headers
+
+Response Headers
+
+- Access-Control-Allow-Origin
+- Access-Control-Allow-Methods
+- Access-Control-Allow-Headers
+- Access-Control-Allow-Credentials
+- Access-Control-Max-Age
+- Access-Control-Expose-Headers
+
+---
+
+## Amazon S3 CORS
+
+Amazon S3 supports CORS configuration for buckets, making it possible for web applications hosted on one origin to access resources stored in another origin.
+
+### Supported Formats
+
+CORS rules may be written in:
+
+- JSON
+- XML
+
+The AWS Management Console only supports JSON.
+
+### Best Practice
+
+Avoid using:
+
+```json
+"AllowedOrigins": ["*"]
+```
+
+unless absolutely necessary.
+
+Instead, explicitly list trusted domains.
+
+### Typical Use Cases
+
+- Static websites
+- JavaScript applications
+- APIs
+- Cross-domain uploads
+- Loading fonts, images, videos, or scripts from another origin
+
+---
+
+## Lab Overview
+
+In this lab two static websites were created using separate S3 buckets.
+
+Website 1
+
+- Hosted an HTML page
+
+Website 2
+
+- Hosted a JavaScript file
+
+The JavaScript from Website 2 was referenced inside Website 1 to demonstrate browser cross-origin behavior.
+
+An API Gateway mock endpoint was also created to demonstrate CORS requests against an API.
+
+### What was demonstrated
+
+- Static website hosting
+- Bucket policies
+- Public website hosting
+- Browser same-origin policy
+- Cross-origin requests
+- CORS configuration
+- API Gateway mock integrations
+
+Without proper CORS configuration, browsers block requests even if the resource itself is publicly accessible.

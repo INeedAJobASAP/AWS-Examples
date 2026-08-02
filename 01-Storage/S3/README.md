@@ -667,3 +667,48 @@ Supported identity sources include:
 - Okta
 
 Access Grants provide temporary credentials and allow fine-grained access to specific prefixes within buckets.
+
+---
+
+# S3 Security and Cross-Origin Access
+
+This section expands on Amazon S3 security features and networking concepts that affect how data is accessed.
+
+## IAM Access Analyzer
+
+IAM Access Analyzer continuously monitors S3 buckets for unintended public or cross-account access. It helps identify risky bucket configurations before they become security incidents.
+
+## Internetwork Traffic Privacy
+
+AWS provides private networking options that allow services to communicate without traversing the public Internet.
+
+Topics covered include:
+
+- AWS PrivateLink
+- VPC Gateway Endpoints
+- Private communication with Amazon S3
+
+## Cross-Origin Resource Sharing (CORS)
+
+CORS controls which websites are allowed to access resources hosted inside an S3 bucket.
+
+During this section I learned:
+
+- Same-Origin Policy
+- Cross-Origin requests
+- HTTP CORS headers
+- Bucket CORS configuration
+- Static website hosting
+- API Gateway mock integrations
+- Testing browser CORS behavior
+
+## Security Concepts Covered
+
+- IAM Access Analyzer
+- Public Access Block
+- Bucket Policies
+- Static Website Hosting
+- CORS
+- API Gateway integration
+- Private networking
+- Cross-account considerations
