@@ -397,3 +397,35 @@ Continued studying Amazon S3 security and networking features.
 - AWS PrivateLink and Gateway Endpoints provide private connectivity without using the public Internet.
 - IAM Access Analyzer helps detect unintentionally exposed S3 buckets.
 - Static website hosting, bucket policies, and CORS are commonly used together when serving web applications from S3.
+
+### S3 Encryption
+
+Continued learning Amazon S3 security by studying encryption mechanisms and key management.
+
+#### Topics Covered
+
+- Encryption in Transit
+- Encryption at Rest
+- Client-Side Encryption (CSE)
+- Server-Side Encryption (SSE)
+- SSE-S3
+- SSE-KMS
+- SSE-C
+- DSSE-KMS
+- CORS configuration and cleanup
+
+#### Practical Work
+
+- Applied CORS rules using JSON configuration.
+- Reviewed cleanup procedures for API Gateway and S3 resources.
+- Explored uploading objects using different encryption methods.
+- Compared AWS-managed keys, KMS-managed keys, and customer-managed keys.
+- Learned how AWS KMS integrates with Amazon S3.
+
+#### What I Learned
+
+- TLS protects data while it travels over networks, while SSE and CSE protect stored data.
+- SSE-S3 is enabled by default for all new S3 objects.
+- SSE-KMS provides stronger control, auditing, and compliance through AWS KMS.
+- SSE-C gives customers full responsibility for encryption keys.
+- DSSE-KMS applies two layers of encryption for highly sensitive data.

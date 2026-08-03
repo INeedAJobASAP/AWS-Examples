@@ -1138,3 +1138,110 @@ aws s3api delete-bucket-cors \
 ```
 
 Delete the CORS configuration from a bucket.
+
+---
+
+## Apply a Bucket CORS Configuration
+
+```bash
+aws s3api put-bucket-cors \
+--bucket bucket-name \
+--cors-configuration file://cors.json
+```
+
+Apply CORS rules to a bucket.
+
+---
+
+## Upload with Default SSE-S3
+
+```bash
+aws s3api put-object \
+--bucket mybucket \
+--key myfile \
+--body myfile.txt
+```
+
+Upload an object using the default SSE-S3 encryption.
+
+---
+
+## Upload with Explicit SSE-S3
+
+```bash
+aws s3api put-object \
+--bucket mybucket \
+--key myfile \
+--body myfile.txt \
+--server-side-encryption AES256
+```
+
+Explicitly enable SSE-S3.
+
+---
+
+## Upload with SSE-KMS
+
+```bash
+aws s3api put-object \
+--bucket mybucket \
+--key example.txt \
+--body example.txt \
+--server-side-encryption aws:kms \
+--ssekms-key-id <kms-key-id>
+```
+
+Upload using AWS KMS.
+
+---
+
+## Upload with aws s3 using KMS
+
+```bash
+aws s3 cp example.txt s3://mybucket/example.txt \
+--sse aws:kms \
+--sse-kms-key-id <kms-key-id>
+```
+
+Upload using the high-level AWS CLI.
+
+---
+
+## Generate a Customer Encryption Key
+
+```bash
+BASE64_ENCODED_KEY=$(openssl rand 32 | base64)
+```
+
+Generate a Base64-encoded AES-256 encryption key.
+
+---
+
+## Upload with SSE-C
+
+```bash
+aws s3api put-object \
+--bucket mybucket \
+--key myfile \
+--body file://myfile.txt \
+--sse-customer-algorithm AES256 \
+--sse-customer-key $BASE64_ENCODED_KEY \
+--sse-customer-key-md5 $(echo -n $BASE64_ENCODED_KEY | base64 --decode | md5sum | awk '{print $1}' | base64)
+```
+
+Upload using customer-managed encryption keys.
+
+---
+
+## Upload with DSSE-KMS
+
+```bash
+aws s3api put-object \
+--bucket mybucket \
+--key myfile \
+--server-side-encryption aws:kms:dsse \
+--ssekms-key-id <kms-key-id> \
+--body filepath
+```
+
+Upload an object using Dual-Layer Server-Side Encryption with AWS KMS.

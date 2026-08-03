@@ -875,3 +875,169 @@ An API Gateway mock endpoint was also created to demonstrate CORS requests again
 - API Gateway mock integrations
 
 Without proper CORS configuration, browsers block requests even if the resource itself is publicly accessible.
+
+---
+
+# Amazon S3 Encryption
+
+## Cleaning Up CORS Lab
+
+After successfully testing CORS:
+
+- Delete the API Gateway.
+- Empty both S3 buckets.
+- Delete both buckets to avoid unnecessary charges.
+
+---
+
+## Encryption Overview
+
+Amazon S3 protects data using two broad categories of encryption.
+
+### Encryption In Transit
+
+Encryption In Transit protects data while it moves across a network.
+
+Examples include:
+
+- TLS
+- SSL (legacy)
+
+The sender encrypts the data before transmission and the receiver decrypts it after it arrives.
+
+Current best practice:
+
+- TLS 1.2
+- TLS 1.3
+
+Older SSL versions and TLS 1.0/1.1 are deprecated.
+
+---
+
+### Encryption At Rest
+
+Encryption At Rest protects data while it is stored inside Amazon S3.
+
+There are two approaches:
+
+- Client-Side Encryption (CSE)
+- Server-Side Encryption (SSE)
+
+---
+
+## Client-Side Encryption (CSE)
+
+With Client-Side Encryption:
+
+- The client encrypts the data before uploading.
+- Amazon S3 stores only encrypted data.
+- Amazon S3 never possesses the plaintext encryption key.
+- The client is responsible for key storage and rotation.
+
+---
+
+## Server-Side Encryption (SSE)
+
+With Server-Side Encryption:
+
+- Amazon S3 encrypts data after receiving it.
+- Amazon S3 decrypts data automatically when authorized users download objects.
+- Only the object contents are encrypted; metadata remains unencrypted.
+
+Server-Side Encryption is enabled by default for all new objects.
+
+Encryption options include:
+
+- SSE-S3
+- SSE-KMS
+- SSE-C
+- DSSE-KMS
+
+---
+
+## SSE-S3
+
+SSE-S3 is the default encryption option.
+
+Characteristics:
+
+- AWS fully manages encryption keys.
+- Uses AES-256 (AES-GCM).
+- Envelope encryption.
+- Automatic key rotation.
+- No additional cost.
+- Bucket Keys may improve performance.
+
+---
+
+## SSE-KMS
+
+SSE-KMS integrates with AWS Key Management Service.
+
+Features:
+
+- Customer chooses the KMS key.
+- Automatic key rotation.
+- Fine-grained IAM and KMS permissions.
+- Compliance support.
+- Additional charges apply.
+- KMS key must exist in the same AWS Region as the bucket.
+
+Required permissions:
+
+Upload:
+
+- kms:GenerateDataKey
+
+Download:
+
+- kms:Decrypt
+
+---
+
+## SSE-C
+
+SSE-C uses customer-provided encryption keys.
+
+Characteristics:
+
+- Customer supplies the encryption key for every upload and download.
+- Amazon S3 never permanently stores the key.
+- AWS stores only a salted HMAC for validation.
+- Supports presigned URLs.
+- Different object versions may use different encryption keys.
+- No additional AWS charge.
+
+The customer is entirely responsible for protecting and rotating encryption keys.
+
+---
+
+## DSSE-KMS
+
+Dual-Layer Server-Side Encryption (DSSE-KMS) encrypts data twice.
+
+Workflow:
+
+1. KMS generates a Data Encryption Key (DEK).
+2. Client encrypts the data locally.
+3. Encrypted DEK is stored alongside the object.
+4. During download, KMS decrypts the DEK.
+5. Client decrypts the object locally.
+
+Characteristics:
+
+- Two encryption layers.
+- Uses AWS KMS.
+- Higher security.
+- Additional KMS costs.
+
+---
+
+## Choosing an Encryption Method
+
+| Method | Keys Managed By | Cost | Typical Use |
+|---------|----------------|------|-------------|
+| SSE-S3 | AWS | Free | Default encryption |
+| SSE-KMS | Customer (KMS) | Additional charges | Compliance and audit requirements |
+| SSE-C | Customer | Free | Full control of encryption keys |
+| DSSE-KMS | Customer (KMS) | Highest | Highly sensitive workloads |

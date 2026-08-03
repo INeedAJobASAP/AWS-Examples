@@ -712,3 +712,30 @@ During this section I learned:
 - API Gateway integration
 - Private networking
 - Cross-account considerations
+
+---
+
+# Amazon S3 Encryption
+
+This section explores how Amazon S3 protects data using encryption during transmission and while stored.
+
+## Topics Covered
+
+- Encryption in Transit
+- Encryption at Rest
+- Client-Side Encryption (CSE)
+- Server-Side Encryption (SSE)
+- SSE-S3
+- SSE-KMS
+- SSE-C
+- DSSE-KMS
+- CORS configuration cleanup
+
+## What I Learned
+
+- TLS protects data while it travels across networks.
+- Server-side encryption is enabled by default for all newly uploaded S3 objects.
+- Different server-side encryption methods provide different levels of control over encryption keys.
+- AWS KMS provides centralized key management, auditing, and automatic key rotation.
+- Customer-provided keys (SSE-C) give complete control over encryption but require the client to manage keys securely.
+- Dual-layer encryption (DSSE-KMS) encrypts data twice for highly sensitive workloads.
