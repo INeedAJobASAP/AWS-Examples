@@ -1245,3 +1245,170 @@ aws s3api put-object \
 ```
 
 Upload an object using Dual-Layer Server-Side Encryption with AWS KMS.
+
+# Amazon S3 Encryption CLI
+
+---
+
+## Create a Bucket
+
+```bash
+aws s3 mb s3://encryption-fun-ab-19292
+```
+
+Create a new S3 bucket.
+
+---
+
+## Create a Test File
+
+```bash
+echo "Hello World" > hello.txt
+```
+
+Create a sample file.
+
+---
+
+## Upload Using Default SSE-S3
+
+```bash
+aws s3 cp hello.txt s3://encryption-fun-ab-19292
+```
+
+Upload an object using the default server-side encryption (SSE-S3).
+
+---
+
+## Upload Using SSE-KMS
+
+```bash
+aws s3api put-object \
+--bucket encryption-fun-ab-19292 \
+--key hello.txt \
+--body hello.txt \
+--server-side-encryption aws:kms \
+--ssekms-key-id YOUR_KMS_KEY_ID
+```
+
+Upload an object encrypted using AWS KMS.
+
+---
+
+## Generate a Base64 Encryption Key
+
+```bash
+export BASE64_ENCODED_KEY=$(openssl rand 32 | base64)
+```
+
+Generate a 256-bit encryption key.
+
+---
+
+## Generate the MD5 Value
+
+```bash
+export MD5_VALUE=$(echo -n "$BASE64_ENCODED_KEY" | base64 --decode | openssl dgst -md5 -binary | base64)
+```
+
+Generate the MD5 checksum required for SSE-C.
+
+---
+
+## Upload Using SSE-C (s3api)
+
+```bash
+aws s3api put-object \
+--bucket encryption-fun-ab-135 \
+--key hello.txt \
+--body hello.txt \
+--sse-customer-algorithm AES256 \
+--sse-customer-key "$BASE64_ENCODED_KEY" \
+--sse-customer-key-md5 "$MD5_VALUE"
+```
+
+Upload an object using a customer-provided encryption key.
+
+---
+
+## Generate an SSE-C Key File
+
+```bash
+openssl rand -out ssec.key 32
+```
+
+Generate a binary encryption key file.
+
+---
+
+## Upload Using SSE-C (aws s3)
+
+```bash
+aws s3 cp hello.txt s3://encryption-fun-ab-135/hello.txt \
+--sse-c AES256 \
+--sse-c-key fileb://ssec.key
+```
+
+Upload an object using the high-level AWS CLI.
+
+---
+
+## Download Without the Encryption Key
+
+```bash
+aws s3 cp s3://encryption-fun-ab-135/hello.txt hello.txt
+```
+
+Fails because the encryption key was not supplied.
+
+---
+
+## Download Using SSE-C
+
+```bash
+aws s3 cp s3://encryption-fun-ab-135/hello.txt hello.txt \
+--sse-c AES256 \
+--sse-c-key fileb://ssec.key
+```
+
+Download the encrypted object successfully.
+
+---
+
+## Configure Bucket Encryption
+
+```bash
+aws s3api put-bucket-encryption \
+--bucket mybucket \
+--server-side-encryption-configuration '{
+  "Rules": [{
+    "ApplyServerSideEncryptionByDefault": {
+      "SSEAlgorithm": "aws:kms",
+      "KMSMasterKeyID": "alias/your-kms-key-alias"
+    },
+    "BucketKeyEnabled": true
+  }]
+}'
+```
+
+Configure default bucket encryption and enable Bucket Keys.
+
+---
+
+## Delete the Object
+
+```bash
+aws s3 rm s3://encryption-fun-ab-19292/hello.txt
+```
+
+Delete the uploaded object.
+
+---
+
+## Delete the Bucket
+
+```bash
+aws s3 rb s3://encryption-fun-ab-19292
+```
+
+Delete the bucket after it has been emptied.

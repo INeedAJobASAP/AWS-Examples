@@ -429,3 +429,22 @@ Continued learning Amazon S3 security by studying encryption mechanisms and key 
 - SSE-KMS provides stronger control, auditing, and compliance through AWS KMS.
 - SSE-C gives customers full responsibility for encryption keys.
 - DSSE-KMS applies two layers of encryption for highly sensitive data.
+
+## 2026-08-03
+
+### S3 Encryption
+
+Completed studying Amazon S3 encryption options.
+
+Covered:
+
+- Encryption in Transit (TLS/SSL)
+- Encryption at Rest
+- SSE-S3
+- SSE-KMS
+- SSE-C
+- DSSE-KMS
+- Bucket Keys
+- Practical AWS CLI examples for each encryption method
+- KMS permissions and pricing considerations
+- Bucket-level encryption configuration

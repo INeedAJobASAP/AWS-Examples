@@ -1041,3 +1041,171 @@ Characteristics:
 | SSE-KMS | Customer (KMS) | Additional charges | Compliance and audit requirements |
 | SSE-C | Customer | Free | Full control of encryption keys |
 | DSSE-KMS | Customer (KMS) | Highest | Highly sensitive workloads |
+
+# Amazon S3 Encryption
+
+---
+
+## Encryption Overview
+
+Amazon S3 supports two types of encryption:
+
+- Encryption In Transit
+- Encryption At Rest
+
+Encryption protects data while it is moving across a network or while it is stored inside Amazon S3.
+
+---
+
+## Encryption In Transit
+
+Encryption In Transit protects data while it travels between a client and Amazon S3.
+
+Common protocols:
+
+- TLS (Transport Layer Security)
+- SSL (Secure Socket Layer - Legacy)
+
+Current best practice:
+
+- TLS 1.2
+- TLS 1.3
+
+Older SSL versions and TLS 1.0/1.1 are deprecated.
+
+---
+
+## Encryption At Rest
+
+Encryption At Rest protects data stored in Amazon S3.
+
+There are two approaches:
+
+- Client-Side Encryption (CSE)
+- Server-Side Encryption (SSE)
+
+---
+
+## Client-Side Encryption (CSE)
+
+With Client-Side Encryption:
+
+- The client encrypts the object before uploading.
+- Amazon S3 stores only encrypted data.
+- Amazon S3 never has the plaintext encryption key.
+- The client is responsible for key storage and rotation.
+
+---
+
+## Server-Side Encryption (SSE)
+
+With Server-Side Encryption:
+
+- Amazon S3 encrypts the object after upload.
+- Amazon S3 decrypts the object during download.
+- Object contents are encrypted.
+- Metadata is not encrypted.
+
+Encryption methods include:
+
+- SSE-S3
+- SSE-KMS
+- SSE-C
+- DSSE-KMS
+
+---
+
+## SSE-S3
+
+SSE-S3 is the default encryption method for every new object uploaded to Amazon S3.
+
+### Features
+
+- AWS manages all encryption keys.
+- Uses AES-256 (AES-GCM).
+- Automatic key rotation.
+- No additional cost.
+- Supports Bucket Keys.
+
+---
+
+## SSE-KMS
+
+SSE-KMS uses AWS Key Management Service (KMS).
+
+### Features
+
+- Customer selects the KMS key.
+- Automatic key rotation.
+- Fine-grained IAM permissions.
+- KMS Key Policies.
+- Compliance support.
+- Additional KMS charges.
+- Bucket and KMS key must be in the same Region.
+
+### Required Permissions
+
+Upload:
+
+- kms:GenerateDataKey
+
+Download:
+
+- kms:Decrypt
+
+---
+
+## SSE-C
+
+SSE-C allows customers to provide their own encryption keys.
+
+### Features
+
+- AWS never permanently stores the encryption key.
+- Key must be supplied for every upload.
+- Key must be supplied for every download.
+- Supports presigned URLs.
+- Different object versions may use different keys.
+- No additional AWS charge.
+
+If the encryption key is lost, the object cannot be recovered.
+
+---
+
+## DSSE-KMS
+
+Dual-Layer Server-Side Encryption (DSSE-KMS) encrypts data twice.
+
+### Workflow
+
+1. AWS KMS generates a Data Encryption Key (DEK).
+2. Client encrypts the data.
+3. Encrypted DEK is stored with the object.
+4. During download, KMS decrypts the DEK.
+5. Client decrypts the object.
+
+Provides stronger security than standard SSE-KMS but incurs additional KMS costs.
+
+---
+
+## S3 Bucket Keys
+
+Bucket Keys optimize SSE-KMS.
+
+Normally, Amazon S3 calls AWS KMS for every object request.
+
+Bucket Keys create a temporary bucket-level key that reduces KMS API calls.
+
+### Benefits
+
+- Up to 99% lower KMS request costs.
+- Improved performance.
+- Reduced KMS API traffic.
+- Can be enabled at:
+  - Bucket level
+  - Object level
+
+Bucket Keys support:
+
+- SSE-S3
+- SSE-KMS

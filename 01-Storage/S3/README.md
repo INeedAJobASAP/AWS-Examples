@@ -739,3 +739,168 @@ This section explores how Amazon S3 protects data using encryption during transm
 - AWS KMS provides centralized key management, auditing, and automatic key rotation.
 - Customer-provided keys (SSE-C) give complete control over encryption but require the client to manage keys securely.
 - Dual-layer encryption (DSSE-KMS) encrypts data twice for highly sensitive workloads.
+
+# S3 Encryption
+
+This example demonstrates the different server-side encryption methods available in Amazon S3 and how to use them with the AWS CLI.
+
+## What you'll learn
+
+- Default S3 encryption (SSE-S3)
+- Server-Side Encryption with AWS KMS (SSE-KMS)
+- Server-Side Encryption with Customer-Provided Keys (SSE-C)
+- Bucket Keys for reducing AWS KMS request costs
+
+---
+
+## Create a Bucket
+
+```bash
+aws s3 mb s3://encryption-fun-ab-19292
+```
+
+---
+
+## Create a Test File
+
+```bash
+echo "Hello World" > hello.txt
+```
+
+---
+
+## Upload with Default Encryption (SSE-S3)
+
+Since January 2023, every new object uploaded to S3 is automatically encrypted using SSE-S3.
+
+```bash
+aws s3 cp hello.txt s3://encryption-fun-ab-19292
+```
+
+---
+
+# SSE-KMS
+
+Create a KMS Customer Managed Key from the AWS Console (or CLI).
+
+> Creating a customer-managed KMS key incurs a monthly charge (around \$1/month).
+
+Upload using your KMS key:
+
+```bash
+aws s3api put-object \
+  --bucket encryption-fun-ab-19292 \
+  --key hello.txt \
+  --body hello.txt \
+  --server-side-encryption aws:kms \
+  --ssekms-key-id YOUR_KMS_KEY_ID
+```
+
+If your IAM identity has `kms:GenerateDataKey` and `kms:Decrypt` permissions, uploads and downloads work normally.
+
+---
+
+# SSE-C (Customer Provided Keys)
+
+With SSE-C, AWS never stores your encryption key.
+
+You must provide the key every time you upload or download the object.
+
+## Generate a Base64 Key
+
+```bash
+export BASE64_ENCODED_KEY=$(openssl rand 32 | base64)
+
+echo "Key: $BASE64_ENCODED_KEY"
+```
+
+Generate its MD5 checksum:
+
+```bash
+export MD5_VALUE=$(echo -n "$BASE64_ENCODED_KEY" | base64 --decode | openssl dgst -md5 -binary | base64)
+
+echo "MD5: $MD5_VALUE"
+```
+
+Upload:
+
+```bash
+aws s3api put-object \
+  --bucket encryption-fun-ab-135 \
+  --key hello.txt \
+  --body hello.txt \
+  --sse-customer-algorithm AES256 \
+  --sse-customer-key "$BASE64_ENCODED_KEY" \
+  --sse-customer-key-md5 "$MD5_VALUE"
+```
+
+---
+
+## Using aws s3 with SSE-C
+
+Generate a raw encryption key:
+
+```bash
+openssl rand -out ssec.key 32
+```
+
+Upload:
+
+```bash
+aws s3 cp hello.txt s3://encryption-fun-ab-135/hello.txt \
+  --sse-c AES256 \
+  --sse-c-key fileb://ssec.key
+```
+
+Downloading **without** the key fails:
+
+```bash
+aws s3 cp s3://encryption-fun-ab-135/hello.txt hello.txt
+```
+
+Downloading **with** the key succeeds:
+
+```bash
+aws s3 cp s3://encryption-fun-ab-135/hello.txt hello.txt \
+  --sse-c AES256 \
+  --sse-c-key fileb://ssec.key
+```
+
+---
+
+# S3 Bucket Keys
+
+Bucket Keys reduce the number of AWS KMS API requests when using SSE-KMS.
+
+Benefits:
+
+- Up to 99% lower KMS request costs
+- Better performance
+- Fewer KMS API calls
+- Can be enabled at the bucket or object level
+
+Example:
+
+```bash
+aws s3api put-bucket-encryption \
+  --bucket mybucket \
+  --server-side-encryption-configuration '{
+    "Rules": [{
+      "ApplyServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "aws:kms",
+        "KMSMasterKeyID": "alias/your-kms-key-alias"
+      },
+      "BucketKeyEnabled": true
+    }]
+}'
+```
+
+---
+
+## Cleanup
+
+```bash
+aws s3 rm s3://encryption-fun-ab-19292/hello.txt
+
+aws s3 rb s3://encryption-fun-ab-19292
+```
