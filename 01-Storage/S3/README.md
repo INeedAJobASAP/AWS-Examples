@@ -904,3 +904,37 @@ aws s3 rm s3://encryption-fun-ab-19292/hello.txt
 
 aws s3 rb s3://encryption-fun-ab-19292
 ```
+
+# S3 - Client-Side Encryption, Replication, Versioning & Lifecycle
+
+This section covers advanced Amazon S3 features related to security, durability, and object management.
+
+## Topics Covered
+
+- Client-Side Encryption (CSE)
+- S3 Data Consistency
+- S3 Object Replication
+- S3 Versioning
+- S3 Lifecycle
+- S3 Transfer Acceleration
+
+## Folder Structure
+
+```
+.
+├── README.md
+├── notes.md
+├── cli.md
+└── progress.md
+```
+
+## Learning Objectives
+
+After completing this section you should understand:
+
+- How Client-Side Encryption differs from Server-Side Encryption.
+- Why Amazon S3 now provides Strong Consistency.
+- The different S3 replication options.
+- How Versioning protects against accidental deletion.
+- How Lifecycle policies automate storage management.
+- How Transfer Acceleration speeds up uploads across long distances.

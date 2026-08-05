@@ -448,3 +448,29 @@ Covered:
 - Practical AWS CLI examples for each encryption method
 - KMS permissions and pricing considerations
 - Bucket-level encryption configuration
+
+## 2026-08-04
+
+## Completed
+
+- Learned Client-Side Encryption (CSE)
+- Understood Strong vs Eventual Consistency
+- Learned S3 Replication
+  - Cross-Region Replication (CRR)
+  - Same-Region Replication (SRR)
+  - Bi-Directional Replication
+  - Batch Replication
+- Learned S3 Versioning
+- Learned S3 Lifecycle
+- Learned S3 Transfer Acceleration
+- Enabled Transfer Acceleration using the AWS CLI
+- Configured the AWS CLI to use Virtual Hosted-Style requests
+- Uploaded objects through the Transfer Acceleration endpoint
+
+## Next Topics
+
+- S3 Object Ownership
+- Object Tags
+- MFA Delete
+- Access Points
+- Remaining S3 Security Features

@@ -1412,3 +1412,47 @@ aws s3 rb s3://encryption-fun-ab-19292
 ```
 
 Delete the bucket after it has been emptied.
+
+# AWS CLI Commands
+
+## Enable Transfer Acceleration
+
+```bash
+aws s3api put-bucket-accelerate-configuration \
+  --bucket mybucket \
+  --accelerate-configuration Status=Enabled
+```
+
+Enables Transfer Acceleration for a bucket.
+
+---
+
+## Configure Virtual Hosted Style
+
+```bash
+aws configure set s3.addressing_style virtual
+```
+
+Configures the AWS CLI to use Virtual Hosted-Style requests.
+
+---
+
+## Upload Using Transfer Acceleration
+
+```bash
+aws s3 cp file.txt s3://mybucket/file.txt \
+  --region ca-central-1 \
+  --endpoint-url https://s3-accelerate.amazonaws.com
+```
+
+Uploads a file through the Transfer Acceleration endpoint.
+
+---
+
+## Always Use Transfer Acceleration
+
+```bash
+aws configure set default.s3.use_accelerate_endpoint true
+```
+
+Configures the AWS CLI to always use the acceleration endpoint.

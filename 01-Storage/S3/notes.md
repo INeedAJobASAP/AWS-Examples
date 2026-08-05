@@ -1209,3 +1209,243 @@ Bucket Keys support:
 
 - SSE-S3
 - SSE-KMS
+
+# S3 Client-Side Encryption, Replication & Lifecycle Notes
+
+---
+
+# S3 Client-Side Encryption (CSE)
+
+## What is Client-Side Encryption?
+
+Client-Side Encryption (CSE) encrypts data **before** it is uploaded to Amazon S3.
+
+Only the client possesses the encryption key, meaning AWS stores only encrypted data and cannot decrypt it.
+
+### Key Features
+
+- Encryption occurs before upload.
+- AWS never has access to the encryption key.
+- Highest level of privacy.
+- Supported by multiple AWS SDKs.
+- You are responsible for key management.
+
+> Think of it as locking a box before shipping it to AWS.
+
+---
+
+## Workflow
+
+```
+Plaintext
+    │
+Encrypt Locally
+    │
+Encrypted Object
+    │
+Amazon S3
+    │
+Download
+    │
+Decrypt Locally
+    │
+Plaintext
+```
+
+---
+
+# S3 Data Consistency
+
+## What is Data Consistency?
+
+Data consistency determines whether every read returns the latest version of stored data.
+
+---
+
+## Strong Consistency
+
+Every read immediately returns the newest object.
+
+Amazon S3 provides Strong Consistency for:
+
+- PUT
+- GET
+- DELETE
+- LIST
+
+Since January 2020 all S3 operations are strongly consistent.
+
+---
+
+## Eventual Consistency
+
+Older distributed systems may temporarily return stale data until replication completes.
+
+Amazon S3 no longer behaves this way.
+
+---
+
+# S3 Object Replication
+
+Object Replication automatically copies objects between S3 buckets.
+
+Common use cases include:
+
+- Disaster recovery
+- Cross-region backups
+- Compliance
+- Cross-account storage
+- Multi-region applications
+
+---
+
+## Replication Types
+
+### Cross-Region Replication (CRR)
+
+Replicates objects to another AWS Region.
+
+Ideal for disaster recovery.
+
+---
+
+### Same-Region Replication (SRR)
+
+Replicates objects within the same Region.
+
+Useful for analytics and log aggregation.
+
+---
+
+### Bi-Directional Replication
+
+Synchronizes two buckets in both directions.
+
+Useful for active-active architectures.
+
+---
+
+### S3 Batch Replication
+
+Replicates existing objects on demand.
+
+Unlike CRR or SRR, this is not continuous.
+
+---
+
+# S3 Versioning
+
+S3 Versioning stores multiple versions of an object.
+
+Instead of overwriting an object, Amazon S3 creates another version.
+
+## Benefits
+
+- Recover deleted objects.
+- Restore previous versions.
+- Protect against accidental overwrites.
+- Required for Replication.
+- Integrates with Lifecycle rules.
+
+---
+
+## Bucket States
+
+### Unversioned
+
+Default state.
+
+### Versioning Enabled
+
+New object versions are created automatically.
+
+### Versioning Suspended
+
+Existing versions remain, but new versions are no longer created.
+
+> Versioning cannot be disabled after being enabled. It can only be suspended.
+
+---
+
+# S3 Lifecycle
+
+Lifecycle Rules automatically move or delete objects over time.
+
+## Transition Actions
+
+Automatically move objects to cheaper storage classes.
+
+Examples:
+
+- Standard → Standard-IA
+- Standard → Glacier
+- Glacier → Deep Archive
+
+---
+
+## Expiration Actions
+
+Automatically delete:
+
+- Current versions
+- Previous versions
+- Delete markers
+- Incomplete multipart uploads
+
+---
+
+## Lifecycle Filters
+
+Lifecycle rules can filter objects by:
+
+- Prefix
+- Object Tags
+- Minimum Object Size
+- Maximum Object Size
+
+Lifecycle works with both current and previous object versions.
+
+---
+
+# S3 Transfer Acceleration
+
+Transfer Acceleration speeds up uploads by routing traffic through CloudFront Edge Locations.
+
+```
+User
+ │
+ ▼
+Nearest Edge Location
+ │
+AWS Global Network
+ │
+ ▼
+S3 Bucket
+```
+
+Instead of uploading directly to S3, data first reaches the closest AWS Edge Location.
+
+---
+
+## Requirements
+
+- Bucket must be DNS compliant.
+- Bucket name cannot contain periods (.).
+- Uses Virtual Hosted-Style requests.
+- May take up to 20 minutes after enabling.
+
+---
+
+## Transfer Acceleration Endpoints
+
+Standard
+
+```
+https://s3-accelerate.amazonaws.com
+```
+
+Dualstack (IPv4 + IPv6)
+
+```
+https://s3-accelerate.dualstack.amazonaws.com
+```
