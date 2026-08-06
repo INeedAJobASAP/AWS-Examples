@@ -938,3 +938,38 @@ After completing this section you should understand:
 - How Versioning protects against accidental deletion.
 - How Lifecycle policies automate storage management.
 - How Transfer Acceleration speeds up uploads across long distances.
+
+# S3 Advanced Access
+
+This section covers advanced ways to securely access, transform, and interact with Amazon S3 data.
+
+## Topics Covered
+
+- Presigned URLs
+- Anatomy of a Presigned URL
+- S3 Access Points
+- Multi-Region Access Points
+- S3 Object Lambda Access Points
+- Mountpoint for Amazon S3
+- Archived Objects
+
+## Folder Structure
+
+```
+.
+├── README.md
+├── notes.md
+├── cli.md
+└── progress.md
+```
+
+## Learning Objectives
+
+After completing this section you should understand:
+
+- How Presigned URLs provide temporary object access.
+- How Access Points simplify large-scale bucket permissions.
+- How Multi-Region Access Points reduce latency.
+- How Object Lambda transforms objects before returning them.
+- How Mountpoint allows Linux applications to interact with S3 buckets.
+- The different ways Amazon S3 archives data.

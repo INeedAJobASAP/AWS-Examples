@@ -1449,3 +1449,280 @@ Dualstack (IPv4 + IPv6)
 ```
 https://s3-accelerate.dualstack.amazonaws.com
 ```
+
+# S3 Advanced Access Notes
+
+---
+
+# Presigned URLs
+
+## What are Presigned URLs?
+
+A Presigned URL is a temporary URL that grants access to a private S3 object without making the object public.
+
+Presigned URLs can be used to:
+
+- Download private objects.
+- Upload objects.
+- Share temporary access with users.
+
+You can generate Presigned URLs using:
+
+- AWS CLI
+- AWS SDKs
+
+The URL expires automatically after the configured duration.
+
+---
+
+## Anatomy of a Presigned URL
+
+A Presigned URL contains authentication information within its query parameters.
+
+Example:
+
+```
+https://mybucket.s3.amazonaws.com/myobject
+?X-Amz-Algorithm=AWS4-HMAC-SHA256
+&X-Amz-Credential=...
+&X-Amz-Date=...
+&X-Amz-Expires=300
+&X-Amz-SignedHeaders=host
+&X-Amz-Signature=...
+```
+
+### Important Parameters
+
+**X-Amz-Algorithm**
+
+Signing algorithm used.
+
+Usually:
+
+```
+AWS4-HMAC-SHA256
+```
+
+---
+
+**X-Amz-Credential**
+
+Contains:
+
+- Access Key
+- Date
+- Region
+- Service
+- Signing scope
+
+---
+
+**X-Amz-Date**
+
+Timestamp when the signature was generated.
+
+---
+
+**X-Amz-Expires**
+
+URL expiration time (seconds).
+
+Example:
+
+```
+300
+```
+
+= 5 minutes.
+
+---
+
+**X-Amz-SignedHeaders**
+
+Lists the headers included in the signing process.
+
+---
+
+**X-Amz-Signature**
+
+The cryptographic signature generated from your AWS Secret Access Key.
+
+---
+
+# S3 Access Points
+
+## What are Access Points?
+
+Access Points provide dedicated endpoints with their own permissions for accessing a shared S3 bucket.
+
+Instead of maintaining one very large Bucket Policy, multiple Access Points can be created for different users, applications, or environments.
+
+Each Access Point has:
+
+- Its own Access Point Policy
+- Independent Block Public Access settings
+- Independent network controls
+- Dedicated endpoint
+
+---
+
+## Network Origins
+
+An Access Point can be configured for:
+
+### Internet
+
+Accessible from the public internet.
+
+### VPC
+
+Accessible only from a specific VPC.
+
+---
+
+## Access Point Policies
+
+Each Access Point can have its own IAM-style policy.
+
+Benefits include:
+
+- Smaller Bucket Policies
+- Easier management
+- Better separation of permissions
+- Different permissions for different applications
+
+---
+
+# Multi-Region Access Points
+
+Multi-Region Access Points provide a single global endpoint that routes requests to the closest healthy S3 bucket.
+
+AWS automatically chooses the bucket with the lowest latency.
+
+## Features
+
+- Global endpoint
+- Lowest latency routing
+- Uses AWS Global Accelerator
+- Supports Internet, VPC and PrivateLink access
+- Works with S3 Replication
+- Supports bi-directional replication
+
+Ideal for globally distributed applications.
+
+---
+
+# Object Lambda Access Points
+
+Object Lambda Access Points allow Amazon S3 objects to be modified before being returned to clients.
+
+The original object stored in S3 is never modified.
+
+Instead, an AWS Lambda function transforms the response.
+
+Supported operations include:
+
+- GET
+- HEAD
+- LIST
+
+Common use cases include:
+
+- Image resizing
+- Data redaction
+- File format conversion
+- Dynamic metadata
+
+---
+
+# Mountpoint for Amazon S3
+
+Mountpoint allows an S3 bucket to be mounted as a Linux filesystem.
+
+It is an open-source client optimized for high-throughput workloads.
+
+---
+
+## Supported Operations
+
+- Read existing files
+- List files
+- Create new files
+- Read objects up to 5 TB
+
+---
+
+## Unsupported Operations
+
+- Modify existing files
+- Delete directories
+- Symbolic links
+- File locking
+
+Mountpoint is ideal for applications that need S3 throughput but not full POSIX filesystem functionality.
+
+---
+
+## Supported Storage Classes
+
+- S3 Standard
+- S3 Standard-IA
+- S3 One Zone-IA
+- Reduced Redundancy Storage (Legacy)
+- Glacier Instant Retrieval
+
+---
+
+## Unsupported Storage Classes
+
+- Intelligent-Tiering
+- Glacier Flexible Retrieval
+- Glacier Deep Archive
+- Intelligent-Tiering Archive Access
+- Intelligent-Tiering Deep Archive Access
+
+---
+
+# Archived Objects
+
+Archived Objects are infrequently accessed objects stored at lower cost in exchange for slower retrieval.
+
+There are two ways to archive data.
+
+---
+
+## Archive Storage Classes
+
+Used when you already know your access pattern.
+
+Examples:
+
+### Glacier Flexible Retrieval
+
+- Minutes to hours
+
+### Glacier Deep Archive
+
+- 12+ hours
+
+Provides the lowest storage costs but requires manually transitioning objects.
+
+---
+
+## Archive Access Tiers
+
+Used when access patterns are unknown.
+
+Amazon S3 automatically moves objects between tiers.
+
+Examples:
+
+### Intelligent-Tiering Archive Access
+
+- Retrieval within minutes
+
+### Intelligent-Tiering Deep Archive Access
+
+- Retrieval within 12+ hours
+
+These tiers cost slightly more than Archive Storage Classes but require no manual intervention.

@@ -1456,3 +1456,64 @@ aws configure set default.s3.use_accelerate_endpoint true
 ```
 
 Configures the AWS CLI to always use the acceleration endpoint.
+
+# AWS CLI Commands
+
+## Generate a Presigned URL
+
+```bash
+aws s3 presign s3://mybucket/myobject \
+--expires-in 300
+```
+
+Generates a temporary URL valid for 300 seconds.
+
+---
+
+## Install Mountpoint (RPM)
+
+```bash
+wget https://s3.amazonaws.com/mountpoint-s3-release/latest/x86_64/mount-s3.rpm
+
+sudo yum install ./mount-s3.rpm
+
+mount-s3 --version
+```
+
+Installs Mountpoint for Amazon S3.
+
+---
+
+## Mount an S3 Bucket
+
+```bash
+mkdir ~/mnt
+
+mount-s3 mybucket ~/mnt
+```
+
+Mounts the S3 bucket to a local directory.
+
+---
+
+## Navigate the Mounted Bucket
+
+```bash
+cd ~/mnt
+
+ls
+
+pwd
+```
+
+Interact with S3 using standard Linux filesystem commands.
+
+---
+
+## Unmount the Bucket
+
+```bash
+umount ~/mnt
+```
+
+Unmounts the S3 bucket.

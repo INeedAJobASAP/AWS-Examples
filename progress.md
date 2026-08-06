@@ -474,3 +474,30 @@ Covered:
 - MFA Delete
 - Access Points
 - Remaining S3 Security Features
+
+## 2026-08-05
+
+## Completed
+
+- Learned how Presigned URLs provide temporary access to private S3 objects.
+- Understood the anatomy of a Presigned URL and its authentication parameters.
+- Learned how S3 Access Points simplify bucket permission management.
+- Learned Internet and VPC Access Points.
+- Understood Access Point Policies.
+- Learned Multi-Region Access Points.
+- Learned how AWS Global Accelerator routes requests to the nearest bucket.
+- Learned Object Lambda Access Points.
+- Learned how Lambda transforms S3 objects without modifying the original data.
+- Installed and used Mountpoint for Amazon S3.
+- Learned supported and unsupported Mountpoint operations.
+- Learned Archive Storage Classes.
+- Learned Intelligent-Tiering Archive Access tiers.
+- Compared manual archival with automatic archival.
+
+## Next Topics
+
+- Requester Pays
+- AWS Marketplace for S3
+- Batch Operations
+- S3 Inventory
+- S3 Select
