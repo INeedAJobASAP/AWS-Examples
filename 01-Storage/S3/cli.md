@@ -1517,3 +1517,45 @@ umount ~/mnt
 ```
 
 Unmounts the S3 bucket.
+
+# S3 Advanced Features CLI
+
+---
+
+## Mount an S3 Bucket
+
+```bash
+mkdir ~/mnt
+
+mount-s3 mybucket ~/mnt
+
+cd ~/mnt
+
+ls
+
+umount ~/mnt
+```
+
+---
+
+## Download from a Requester Pays Bucket
+
+```bash
+aws s3 cp \
+s3://bucket-name/object.txt ./object.txt \
+--request-payer requester
+```
+
+---
+
+## S3 Select
+
+```bash
+aws s3api select-object-content \
+--bucket my-bucket \
+--key my-data.csv \
+--expression "SELECT * FROM s3object LIMIT 100" \
+--expression-type SQL \
+--input-serialization '{"CSV":{}, "CompressionType":"NONE"}' \
+--output-serialization '{"CSV":{}}' output.csv
+```

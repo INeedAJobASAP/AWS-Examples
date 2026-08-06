@@ -973,3 +973,18 @@ After completing this section you should understand:
 - How Object Lambda transforms objects before returning them.
 - How Mountpoint allows Linux applications to interact with S3 buckets.
 - The different ways Amazon S3 archives data.
+
+# S3 Advanced Features
+
+This section covers advanced Amazon S3 features for secure data access, large-scale object management, analytics, and automation.
+
+## Topics
+
+- S3 Object Lambda Access Points
+- Mountpoint for Amazon S3
+- Archived Objects
+- Requester Pays
+- AWS Marketplace for S3
+- S3 Batch Operations
+- S3 Inventory
+- S3 Select

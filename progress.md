@@ -501,3 +501,16 @@ Covered:
 - Batch Operations
 - S3 Inventory
 - S3 Select
+
+## 2026-08-05
+
+## Completed
+
+- Object Lambda Access Points
+- Mountpoint for Amazon S3
+- Archived Objects
+- Requester Pays
+- AWS Marketplace for S3
+- Batch Operations
+- S3 Inventory
+- S3 Select

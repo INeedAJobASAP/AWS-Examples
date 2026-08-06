@@ -1726,3 +1726,243 @@ Examples:
 - Retrieval within 12+ hours
 
 These tiers cost slightly more than Archive Storage Classes but require no manual intervention.
+
+# S3 Advanced Features
+
+---
+
+## S3 Object Lambda Access Points
+
+S3 Object Lambda Access Points allow you to transform object data as it is returned to clients without modifying the original object.
+
+### Key Features
+
+- Original objects remain unchanged.
+- Transformations occur during retrieval.
+- Uses AWS Lambda.
+- Multiple Object Lambda Access Points can be attached to the same bucket.
+
+### Supported Operations
+
+- GET
+- HEAD
+- LIST
+
+### Common Use Cases
+
+- Image resizing
+- Redacting sensitive information
+- Dynamic file formatting
+- Content filtering
+
+---
+
+## Mountpoint for Amazon S3
+
+Mountpoint allows an S3 bucket to be mounted as a Linux filesystem.
+
+It is an open-source client optimized for high throughput.
+
+### Supports
+
+- Read existing objects
+- Create new files
+- List directories
+- Files up to 5 TB
+
+### Does NOT Support
+
+- Modifying existing files
+- Symbolic links
+- File locking
+- Directory deletion
+
+### Supported Storage Classes
+
+- Standard
+- Standard-IA
+- One Zone-IA
+- RRS
+- Glacier Instant Retrieval
+
+### Unsupported
+
+- Intelligent Tiering
+- Glacier Flexible Retrieval
+- Glacier Deep Archive
+- Archive Access tiers
+
+---
+
+## Archived Objects
+
+Archived objects trade retrieval speed for significantly lower storage cost.
+
+### Archive Storage Classes
+
+Manual archival.
+
+| Storage Class | Retrieval |
+|--------------|-----------|
+| Glacier Flexible Retrieval | Minutes → Hours |
+| Glacier Deep Archive | 12+ Hours |
+
+### Archive Access Tiers
+
+Automatic archival via Intelligent Tiering.
+
+| Tier | Retrieval |
+|------|-----------|
+| Archive Access | Minutes |
+| Deep Archive Access | 12+ Hours |
+
+---
+
+## S3 Requester Pays
+
+Requester Pays shifts download and request costs from the bucket owner to the requester.
+
+### Bucket Owner Pays
+
+- Storage
+
+### Requester Pays
+
+- Download requests
+- Data transfer
+
+### Rules
+
+- Authentication required
+- Anonymous requests not allowed
+- Request must include Requester Pays header
+
+---
+
+## AWS Marketplace for S3
+
+Marketplace solutions integrate directly with S3.
+
+### Categories
+
+#### Backup
+
+- Veeam
+- Druva
+
+#### Analytics
+
+- ChaosSearch
+- Logz.io
+- BryteFlow
+
+#### Monitoring
+
+- Datadog
+- Splunk
+- Dynatrace
+
+#### Security
+
+- GuardDuty
+- Macie
+- Trend Cloud One
+- Rapid7
+- Palo Alto
+
+#### Identity
+
+- IAM
+- OneLogin
+- FileCloud
+
+---
+
+## S3 Batch Operations
+
+Performs operations across billions of S3 objects.
+
+### Supported Operations
+
+- Copy
+- Restore Glacier Objects
+- Invoke Lambda
+- Replace Tags
+- Replace ACLs
+- Object Lock
+- Legal Hold
+
+### Manifest Formats
+
+- Inventory manifest
+- CSV
+
+### Completion Reports
+
+Optional audit reports can be generated.
+
+---
+
+## Amazon S3 Inventory
+
+Creates scheduled reports of bucket contents.
+
+### Frequency
+
+- Daily
+- Weekly
+
+### Output Formats
+
+- CSV
+- ORC
+- Parquet
+
+### Metadata
+
+Can include:
+
+- Size
+- Storage Class
+- Encryption
+- Replication
+- Version IDs
+- Object Lock
+- ACL
+- Checksums
+
+Useful for auditing and Batch Operations.
+
+---
+
+## Amazon S3 Select
+
+Query object contents using SQL without downloading the entire object.
+
+### Supported Formats
+
+- CSV
+- JSON
+- Parquet
+
+### Compression
+
+- GZIP
+- BZIP2
+
+### Supported Storage Classes
+
+- Standard
+- Standard IA
+- One Zone IA
+- Intelligent Tiering
+- Glacier Instant Retrieval
+
+### Unsupported
+
+- Glacier Flexible Retrieval
+- Glacier Deep Archive
+- Archive Access tiers
+- RRS
+
+Useful for querying very large datasets efficiently.
