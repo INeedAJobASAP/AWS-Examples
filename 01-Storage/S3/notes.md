@@ -1966,3 +1966,130 @@ Query object contents using SQL without downloading the entire object.
 - RRS
 
 Useful for querying very large datasets efficiently.
+
+# S3 Monitoring & Analytics
+
+---
+
+## S3 Event Notifications
+
+Amazon S3 Event Notifications allow buckets to automatically notify other AWS services whenever specific object events occur.
+
+This enables event-driven architectures without polling the bucket.
+
+### Supported Events
+
+- Object Created
+- Object Removed
+- Restore Completed
+- Replication Events
+- Object Tagging
+- Object ACL Updates
+- Lifecycle Expiration
+- Lifecycle Transition
+- Intelligent-Tiering Archive Events
+- Reduced Redundancy Storage (RRS) Object Lost Events
+
+### Destinations
+
+- Amazon SNS
+- Amazon SQS (Standard Queues only)
+- AWS Lambda
+- Amazon EventBridge
+
+> **Note**
+>
+> FIFO SQS queues are **not supported** directly by S3 Event Notifications.
+
+### Delivery Guarantees
+
+- Delivered **at least once**
+- Usually delivered within seconds
+- Can occasionally take up to a minute
+
+### Common Use Cases
+
+- Automatically resize uploaded images
+- Trigger antivirus scanning
+- Process uploaded documents
+- Send notifications after uploads
+- Start ETL pipelines
+
+---
+
+## S3 Storage Class Analysis
+
+S3 Storage Class Analysis monitors object access patterns and recommends when objects should move from **S3 Standard** to **S3 Standard-IA**.
+
+Unlike Intelligent-Tiering, Storage Class Analysis **does not move objects automatically**. Instead, it provides metrics that can be used together with **Lifecycle Rules**.
+
+### Key Features
+
+- Monitors object access patterns
+- Helps reduce storage costs
+- Supports up to **1,000 filters** per bucket
+- Daily reports
+- Export results to CSV
+- Export metrics to Amazon QuickSight
+- Results become available after **24–48 hours**
+- Requires approximately **30 days** of access history for meaningful recommendations
+
+### Why use Storage Class Analysis instead of Intelligent-Tiering?
+
+Storage Class Analysis provides:
+
+- More detailed analytics
+- Lower monitoring costs
+- Greater control over storage transitions
+- Integration with Lifecycle Policies for custom automation
+
+### Limitations
+
+Supports recommendations only between:
+
+- S3 Standard
+- S3 Standard-IA
+
+---
+
+## Amazon S3 Storage Lens
+
+Amazon S3 Storage Lens provides storage analytics across your entire AWS Organization.
+
+It helps identify:
+
+- Storage usage
+- Cost optimization opportunities
+- Data protection improvements
+- Access management issues
+- Performance trends
+
+### Storage Lens Dashboard
+
+Updated daily and provides:
+
+- Total storage
+- Object count
+- Fastest-growing buckets
+- Fastest-growing prefixes
+- Cost trends
+- Security recommendations
+
+### Export Options
+
+Reports can be exported as:
+
+- CSV
+- Parquet
+
+Metrics can also be exported to:
+
+- Amazon CloudWatch
+
+### Benefits
+
+- Organization-wide visibility
+- Identify unused storage
+- Optimize storage costs
+- Improve security posture
+- Improve application performance

@@ -1559,3 +1559,40 @@ aws s3api select-object-content \
 --input-serialization '{"CSV":{}, "CompressionType":"NONE"}' \
 --output-serialization '{"CSV":{}}' output.csv
 ```
+
+# S3 Monitoring & Analytics CLI
+
+---
+
+## Configure Storage Class Analysis
+
+```bash
+aws s3api put-bucket-analytics-configuration \
+  --bucket my-bucket \
+  --id 1 \
+  --analytics-configuration '{
+    "Id": "1",
+    "StorageClassAnalysis": {}
+  }'
+```
+
+Creates a Storage Class Analysis configuration for a bucket.
+
+---
+
+## Common Event Notification CLI Commands
+
+### Configure Event Notifications
+
+```bash
+aws s3api put-bucket-notification-configuration \
+  --bucket my-bucket \
+  --notification-configuration file://notification.json
+```
+
+### View Notification Configuration
+
+```bash
+aws s3api get-bucket-notification-configuration \
+  --bucket my-bucket
+```

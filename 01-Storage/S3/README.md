@@ -988,3 +988,13 @@ This section covers advanced Amazon S3 features for secure data access, large-sc
 - S3 Batch Operations
 - S3 Inventory
 - S3 Select
+
+# S3 Monitoring & Analytics
+
+This section covers Amazon S3 monitoring, analytics, reporting, and automation features used to optimize storage, integrate with AWS services, and improve operational visibility.
+
+## Topics
+
+- S3 Event Notifications
+- S3 Storage Class Analysis
+- S3 Storage Lens
