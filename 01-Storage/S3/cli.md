@@ -1596,3 +1596,67 @@ aws s3api put-bucket-notification-configuration \
 aws s3api get-bucket-notification-configuration \
   --bucket my-bucket
 ```
+
+# Advanced S3 CLI Examples
+
+---
+
+## Create Static Website Hosting
+
+```bash
+aws s3api put-bucket-website \
+  --bucket my-bucket \
+  --website-configuration file://website.json
+```
+
+Enable Static Website Hosting for a bucket.
+
+---
+
+## View Website Configuration
+
+```bash
+aws s3api get-bucket-website \
+  --bucket my-bucket
+```
+
+---
+
+## Initiate Multipart Upload
+
+```bash
+aws s3api create-multipart-upload \
+  --bucket my-bucket \
+  --key myfile
+```
+
+Returns an **UploadId**.
+
+---
+
+## Upload a Part
+
+```bash
+aws s3api upload-part \
+  --bucket my-bucket \
+  --key myfile \
+  --part-number 1 \
+  --body part01 \
+  --upload-id UPLOAD_ID
+```
+
+Upload an individual part.
+
+---
+
+## Complete Multipart Upload
+
+```bash
+aws s3api complete-multipart-upload \
+  --bucket my-bucket \
+  --key myfile \
+  --multipart-upload file://parts.json \
+  --upload-id UPLOAD_ID
+```
+
+Combine uploaded parts into a single object.

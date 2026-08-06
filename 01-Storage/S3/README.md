@@ -998,3 +998,14 @@ This section covers Amazon S3 monitoring, analytics, reporting, and automation f
 - S3 Event Notifications
 - S3 Storage Class Analysis
 - S3 Storage Lens
+
+# Advanced Amazon S3 Features
+
+This section covers additional Amazon S3 capabilities including static website hosting, multipart uploads, byte-range downloads, and interoperability with other AWS services.
+
+## Topics
+
+- Static Website Hosting
+- Multipart Upload
+- Byte Range Fetching
+- S3 Interoperability

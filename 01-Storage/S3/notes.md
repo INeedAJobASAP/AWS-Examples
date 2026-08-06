@@ -2093,3 +2093,157 @@ Metrics can also be exported to:
 - Optimize storage costs
 - Improve security posture
 - Improve application performance
+
+# Advanced Amazon S3 Features
+
+---
+
+## S3 Static Website Hosting
+
+Amazon S3 can host static websites consisting of HTML, CSS, JavaScript, images, and other static assets.
+
+### Features
+
+- Hosts static websites directly from an S3 bucket
+- Supports:
+  - Static Website Hosting
+  - Redirect Requests
+- Website endpoints are public HTTP endpoints
+
+> **Note**
+>
+> S3 Website Endpoints **do not support HTTPS**.
+>
+> To serve HTTPS, place **Amazon CloudFront** in front of the S3 bucket.
+
+### Website Endpoint
+
+Depending on the AWS Region, the endpoint uses either a hyphen or period.
+
+```
+http://bucket-name.s3-website-region.amazonaws.com
+
+or
+
+http://bucket-name.s3-website.region.amazonaws.com
+```
+
+### Limitations
+
+- HTTP only
+- Requester Pays buckets cannot be accessed through Website Endpoints
+- Best suited for static content
+
+---
+
+## Amazon S3 Multipart Upload
+
+Multipart Upload allows a single object to be uploaded as multiple independent parts.
+
+AWS recommends Multipart Upload for objects larger than **100 MB**.
+
+### Benefits
+
+- Faster uploads
+- Parallel uploads
+- Retry failed parts only
+- Upload parts in any order
+- No expiration after upload initiation
+- Upload while generating large files
+
+### Multipart Upload Workflow
+
+1. Initiate Multipart Upload
+2. Upload Parts
+3. Complete Multipart Upload
+
+During completion S3 combines every uploaded part into one object.
+
+### Multipart Upload Rules
+
+- Maximum **10,000 parts**
+- Parts numbered **1–10,000**
+- Each uploaded part returns an **ETag**
+- Completion requires all ETags
+
+---
+
+## Amazon S3 Byte Range Fetching
+
+Byte Range Fetching allows downloading only a specific portion of an object using the HTTP **Range** header.
+
+This is often referred to as **Multipart Download**.
+
+### Benefits
+
+- Faster downloads
+- Parallel downloads
+- Better retry performance
+- Reduced bandwidth
+- Ideal for large objects
+
+Typical range sizes:
+
+- 8 MB
+- 16 MB
+
+### Common Use Cases
+
+- Large CSV files
+- Log files
+- Video streaming
+- Large archives
+- Database exports
+
+### Workflow
+
+1. Request multiple byte ranges
+2. Download each range concurrently
+3. Reassemble the file locally
+
+---
+
+## S3 Interoperability
+
+S3 integrates with almost every AWS service and commonly acts as the central storage layer.
+
+### Common AWS Integrations
+
+#### Compute
+
+- Amazon EC2
+- AWS Lambda
+- Amazon EMR
+
+#### Databases
+
+- Amazon RDS
+- Amazon Redshift
+
+#### Analytics
+
+- Amazon Athena
+- AWS Glue
+- Amazon Kinesis Firehose
+
+#### Monitoring
+
+- AWS CloudTrail
+- Amazon CloudWatch Logs
+
+#### Data Pipelines
+
+- AWS Data Pipeline
+
+#### IoT
+
+- AWS IoT Core
+
+### Why S3 is the AWS Data Lake
+
+Many AWS services naturally write their output to S3 because it provides:
+
+- Durable storage
+- Low cost
+- Scalability
+- Integration with analytics services
