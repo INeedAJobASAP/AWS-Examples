@@ -596,3 +596,91 @@ Covered:
 - Multipart Upload
 - Byte Range Fetching
 - S3 Interoperability
+
+## 2026-08-07
+
+## Completed
+
+### AWS API
+
+- What is an API?
+- HTTP/S APIs
+- AWS Service Endpoints
+- AWS API Request Structure
+- Authentication & Signed Requests
+- API Actions & Parameters
+- Ways to Interact with AWS APIs
+- HTTP Requests
+- AWS Management Console
+- AWS SDKs
+- AWS CLI
+
+---
+
+## AWS API Completed
+
+### Core
+
+- Application Programming Interface (API)
+- HTTP/S Requests
+- AWS Service Endpoints
+- Request Structure
+- API Actions
+- Request Parameters
+- Request Payloads
+- Authentication
+- Signed Requests
+
+### AWS CLI
+
+- Command Line Interface
+- Terminal
+- Console
+- Shell
+- Bash
+- Zsh
+- PowerShell
+- AWS CLI
+- CLI Commands
+- CLI Output Formats
+- AWS CLI Installation
+
+### Credentials
+
+- Access Keys
+- Access Key ID
+- Secret Access Key
+- Programmatic Access
+- AWS Console Access vs Programmatic Access
+- AWS Credentials
+- AWS Credentials File
+- `~/.aws/credentials`
+- AWS CLI Profiles
+- `aws configure`
+- Environment Variables
+- Credential Security Best Practices
+- Access Key Rotation
+- Access Key Activation/Deactivation
+- Two Active Access Keys Limit
+
+### API Reliability
+
+- Network Failures
+- DNS Failures
+- Network Devices
+- Load Balancers
+- API Retries
+- Exponential Backoff
+- Retry Intervals
+- CLI/SDK Built-in Retries
+
+### Smithy
+
+- Smithy
+- Smithy 2.0
+- AWS Interface Definition Language (IDL)
+- Model-First Development
+- Service Definitions
+- Operations
+- Structures
+- Lists

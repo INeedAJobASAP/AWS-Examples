@@ -925,7 +925,6 @@ This section covers advanced Amazon S3 features related to security, durability,
 ├── README.md
 ├── notes.md
 ├── cli.md
-└── progress.md
 ```
 
 ## Learning Objectives
@@ -952,17 +951,6 @@ This section covers advanced ways to securely access, transform, and interact wi
 - S3 Object Lambda Access Points
 - Mountpoint for Amazon S3
 - Archived Objects
-
-## Folder Structure
-
-```
-.
-├── README.md
-├── notes.md
-├── cli.md
-└── progress.md
-```
-
 ## Learning Objectives
 
 After completing this section you should understand:
